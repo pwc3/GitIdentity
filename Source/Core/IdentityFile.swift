@@ -17,17 +17,17 @@ enum IdentityFileError: Error {
     case fileNotSymlink(String)
 }
 
-class IdentityFile {
+public class IdentityFile {
 
-    class FileType {
+    public class FileType {
 
-        static let privateKey = FileType(formatString: "id_rsa_git_%@", pattern: #"id_rsa_git_([^\.]+)$"#)
+        public static let privateKey = FileType(formatString: "id_rsa_git_%@", pattern: #"id_rsa_git_([^\.]+)$"#)
 
-        static let publicKey = FileType(formatString: "id_rsa_git_%@.pub", pattern: #"id_rsa_git_([^\.]+)\.pub$"#)
+        public static let publicKey = FileType(formatString: "id_rsa_git_%@.pub", pattern: #"id_rsa_git_([^\.]+)\.pub$"#)
 
-        static let gitconfig = FileType(formatString: ".gitconfig_identity_%@", pattern: #".gitconfig_identity_([^\.]+)$"#)
+        public static let gitconfig = FileType(formatString: ".gitconfig_identity_%@", pattern: #".gitconfig_identity_([^\.]+)$"#)
 
-        static let all: [FileType] = [
+        public static let all: [FileType] = [
             .privateKey, .publicKey, .gitconfig
         ]
 
@@ -69,11 +69,11 @@ class IdentityFile {
         }
     }
 
-    let path: String
+    public let path: String
 
-    let type: FileType
+    public let type: FileType
 
-    let identity: String
+    public let identity: String
 
     required init(path: String, type: FileType, identity: String) {
         self.path = (path as NSString).expandingTildeInPath
@@ -109,11 +109,11 @@ class IdentityFile {
         return contents.compactMap { IdentityFile(path: $0) }
     }
 
-    var exists: Bool {
+    public var exists: Bool {
         return FileManager.default.fileExists(atPath: path)
     }
 
-    var isSymlink: Bool {
+    public var isSymlink: Bool {
         do {
             let attrs = try FileManager.default.attributesOfItem(atPath: path)
             guard let type = attrs[.type] as? FileAttributeType, type == .typeSymbolicLink else {
