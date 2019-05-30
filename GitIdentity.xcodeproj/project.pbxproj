@@ -16,6 +16,8 @@
 		C51D900E22A06406006C2181 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51D8FED22A061EC006C2181 /* Action.swift */; };
 		C51D900F22A06406006C2181 /* ActionParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51D8FEE22A061EC006C2181 /* ActionParser.swift */; };
 		C51D901322A06516006C2181 /* libGitIdentityCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C51D900722A063F8006C2181 /* libGitIdentityCore.a */; };
+		C51D901722A069D5006C2181 /* IdentityFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51D901622A069D5006C2181 /* IdentityFile.swift */; };
+		C51D901922A07954006C2181 /* IdentityFileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51D901822A07954006C2181 /* IdentityFileTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,8 @@
 		C51D8FF922A06219006C2181 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C51D8FFF22A06251006C2181 /* ActionParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionParserTests.swift; sourceTree = "<group>"; };
 		C51D900722A063F8006C2181 /* libGitIdentityCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGitIdentityCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C51D901622A069D5006C2181 /* IdentityFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityFile.swift; sourceTree = "<group>"; };
+		C51D901822A07954006C2181 /* IdentityFileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityFileTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +159,7 @@
 			children = (
 				C51D8FED22A061EC006C2181 /* Action.swift */,
 				C51D8FEE22A061EC006C2181 /* ActionParser.swift */,
+				C51D901622A069D5006C2181 /* IdentityFile.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -164,6 +169,7 @@
 			children = (
 				C51D8FF922A06219006C2181 /* Info.plist */,
 				C51D8FFF22A06251006C2181 /* ActionParserTests.swift */,
+				C51D901822A07954006C2181 /* IdentityFileTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -337,6 +343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C51D900022A06251006C2181 /* ActionParserTests.swift in Sources */,
+				C51D901922A07954006C2181 /* IdentityFileTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +352,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C51D900F22A06406006C2181 /* ActionParser.swift in Sources */,
+				C51D901722A069D5006C2181 /* IdentityFile.swift in Sources */,
 				C51D900E22A06406006C2181 /* Action.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
