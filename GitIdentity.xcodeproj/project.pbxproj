@@ -24,6 +24,7 @@
 		C52C520622A0C94D0094CCBC /* CurrentIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C520522A0C94D0094CCBC /* CurrentIdentity.swift */; };
 		C52C520822A1A0190094CCBC /* GitIdentityError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C520722A1A0190094CCBC /* GitIdentityError.swift */; };
 		C52C520A22A1A23B0094CCBC /* IdentityFileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C520922A1A23B0094CCBC /* IdentityFileType.swift */; };
+		C5A0D78122A1C9AC00D9A17C /* Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A0D77E22A1C91500D9A17C /* Operations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		C52C520522A0C94D0094CCBC /* CurrentIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentIdentity.swift; sourceTree = "<group>"; };
 		C52C520722A1A0190094CCBC /* GitIdentityError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitIdentityError.swift; sourceTree = "<group>"; };
 		C52C520922A1A23B0094CCBC /* IdentityFileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityFileType.swift; sourceTree = "<group>"; };
+		C5A0D77E22A1C91500D9A17C /* Operations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operations.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +186,7 @@
 				C51D901A22A07F1D006C2181 /* Identity.swift */,
 				C51D901622A069D5006C2181 /* IdentityFile.swift */,
 				C52C520922A1A23B0094CCBC /* IdentityFileType.swift */,
+				C5A0D77E22A1C91500D9A17C /* Operations.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5A0D78122A1C9AC00D9A17C /* Operations.swift in Sources */,
 				C51D900F22A06406006C2181 /* ActionParser.swift in Sources */,
 				C51D901B22A07F1D006C2181 /* Identity.swift in Sources */,
 				C51D901D22A08150006C2181 /* Configuration.swift in Sources */,

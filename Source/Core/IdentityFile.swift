@@ -50,8 +50,15 @@ public class IdentityFile {
                       identity: identity)
     }
 
+    static func files(inDirectories directories: [String]) -> [IdentityFile] {
+        return directories.map { files(inDirectory: $0) }.flatMap { $0 }
+    }
+
     static func files(inDirectory directory: String) -> [IdentityFile] {
-        return files(inDirectoryContents: (try? FileManager.default.contentsOfDirectory(atPath: directory)) ?? [])
+        let filenames = (try? FileManager.default.contentsOfDirectory(atPath: directory)) ?? []
+        let dir: NSString = directory as NSString
+
+        return files(inDirectoryContents: filenames.map { dir.appendingPathComponent($0) })
     }
 
     static func files(inDirectoryContents contents: [String]) -> [IdentityFile] {

@@ -9,13 +9,30 @@
 import GitIdentityCore
 import Foundation
 
+func list(config: Configuration) throws -> [String: Bool] {
+    let current = try CurrentIdentity(config: config).targetName
+    let identities = Identity.identities(config: config)
+
+    var result = [String: Bool]()
+    for id in identities {
+        let name = id.name
+        result[name] = (name == current)
+    }
+
+    return result
+}
+
 func main(args: [String]) throws -> Int32 {
     let config = Configuration()
-    let identities = Identity.identities(config: config).map { $0.debugDescription }
-    print(identities.joined(separator: "\n"))
 
-    let current = try CurrentIdentity(config: config)
-    print(current.debugDescription)
+    switch ActionParser.parse(arguments: Array(args[1...])) {
+    case .success(let action):
+        let operation = action.createOperation(config: config)
+        operation.main()
+
+    case .failure(let error):
+        throw error
+    }
 
     return 0
 }

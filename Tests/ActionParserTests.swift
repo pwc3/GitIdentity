@@ -21,7 +21,7 @@ class ActionParserTests: XCTestCase {
             XCTAssertEqual(a1, a2, file: file, line: line)
 
         case (.failure(let e1), .failure(let e2)):
-            XCTAssertEqual(e1, e2, file: file, line: line)
+            XCTAssertEqual(e1 as NSError, e2 as NSError, file: file, line: line)
 
         default:
             XCTFail("Expected \(expected), received \(actual)", file: file, line: line)

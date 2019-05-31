@@ -39,6 +39,9 @@ public struct ActionParser {
                 ? .success(.use(identity: arguments[0]))
                 : .failure(.incorrectNumberOfArguments)
 
+        case "help", "-h", "--help", "-?":
+            return .success(.help)
+
         default:
             return .failure(.unrecognizedCommand(command))
         }
