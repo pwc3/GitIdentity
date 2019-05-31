@@ -10,7 +10,7 @@ import Foundation
 
 public class Identity {
 
-    public static let currentIdentityName = "current"
+    public let name: String
 
     public let privateKeyFile: IdentityFile
 
@@ -18,23 +18,34 @@ public class Identity {
 
     public let gitconfigFile: IdentityFile
 
-    public let name: String
-
-    public init(name: String, config: Configuration) {
-        self.name = name
-        self.privateKeyFile = IdentityFile(type: .privateKey, inDirectory: config.sshPath, forIdentity: name)
-        self.publicKeyFile = IdentityFile(type: .publicKey, inDirectory: config.sshPath, forIdentity: name)
-        self.gitconfigFile = IdentityFile(type: .gitconfig, inDirectory: config.gitconfigPath, forIdentity: name)
+    public static func read(name: String, config: Configuration) throws -> Identity {
+        return Identity(name: name,
+                        privateKeyFile: try IdentityFile(type: .privateKey, inDirectory: config.sshPath, forIdentity: name),
+                        publicKeyFile: try IdentityFile(type: .publicKey, inDirectory: config.sshPath, forIdentity: name),
+                        gitconfigFile: try IdentityFile(type: .gitconfig, inDirectory: config.gitconfigPath, forIdentity: name))
     }
 
-    public static func identities(config: Configuration) throws -> [Identity] {
-        let sshFiles = try IdentityFile.files(inDirectory: config.sshPath)
-        let gitconfigFiles = try IdentityFile.files(inDirectory: config.gitconfigPath)
+    public init(name: String, privateKeyFile: IdentityFile, publicKeyFile: IdentityFile, gitconfigFile: IdentityFile) {
+        self.name = name
+        self.privateKeyFile = privateKeyFile
+        self.publicKeyFile = publicKeyFile
+        self.gitconfigFile = gitconfigFile
+    }
+
+    public static func identities(config: Configuration) -> [Identity] {
+        let sshFiles = IdentityFile.files(inDirectory: config.sshPath)
+        let gitconfigFiles = IdentityFile.files(inDirectory: config.gitconfigPath)
 
         let sshNames = Set(sshFiles.map { $0.identity })
         let gitconfigNames = Set(gitconfigFiles.map { $0.identity })
 
-        let names = sshNames.intersection(gitconfigNames).subtracting([Identity.currentIdentityName])
-        return names.map { Identity(name: $0, config: config) }
+        let names = sshNames.intersection(gitconfigNames).subtracting([CurrentIdentity.identifier])
+        return names.compactMap { try? Identity.read(name: $0, config: config) }
+    }
+}
+
+extension Identity: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        return "Identity(name: \(name), privateKeyFile: \(privateKeyFile.debugDescription), publicKeyFile: \(publicKeyFile.debugDescription), gitconfigFile: \(gitconfigFile.debugDescription))"
     }
 }

@@ -8,16 +8,9 @@
 
 import Foundation
 
-public enum ActionParserError: Error, Equatable {
-
-    case incorrectNumberOfArguments
-
-    case unrecognizedCommand(String)
-}
-
 public struct ActionParser {
 
-    public static func parse(arguments inputArguments: [String]) -> Result<Action, ActionParserError> {
+    public static func parse(arguments inputArguments: [String]) -> Result<Action, GitIdentityError> {
         guard inputArguments.count > 0 else {
             return .failure(.incorrectNumberOfArguments)
         }

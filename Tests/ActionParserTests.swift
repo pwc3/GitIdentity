@@ -11,8 +11,8 @@ import XCTest
 
 class ActionParserTests: XCTestCase {
 
-    private func check(actual: Result<Action, ActionParserError>,
-                       expected: Result<Action, ActionParserError>,
+    private func check(actual: Result<Action, GitIdentityError>,
+                       expected: Result<Action, GitIdentityError>,
                        file: StaticString = #file,
                        line: UInt = #line)
     {

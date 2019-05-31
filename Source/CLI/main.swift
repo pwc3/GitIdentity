@@ -10,10 +10,9 @@ import GitIdentityCore
 import Foundation
 
 let config = Configuration()
-do {
-    let identities = try Identity.identities(config: config)
-    print(identities.map { $0.name })
-}
-catch {
-    print("Error: \(error)")
-}
+let identities = Identity.identities(config: config).map { $0.debugDescription }
+print(identities.joined(separator: "\n"))
+
+//let current = CurrentIdentity(config: config)
+//print(current.debugDescription)
+//print(current.identity)
