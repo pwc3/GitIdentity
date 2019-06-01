@@ -91,6 +91,10 @@ public class IdentityFile {
 
         return file
     }
+
+    func readContents() throws -> String {
+        return try String(contentsOfFile: path)
+    }
 }
 
 extension IdentityFile: CustomDebugStringConvertible {

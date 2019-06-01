@@ -95,12 +95,26 @@ public class ListOperation: GitIdentityOperation<[String: Bool]> {
     }
 }
 
-public class PrintOperation: GitIdentityOperation<Void> {
-    override func execute() throws -> Void {
+public class PrintOperation: GitIdentityOperation<(current: String, gitconfig: String, publicKey: String)> {
+
+    override func execute() throws -> (current: String, gitconfig: String, publicKey: String) {
+        let current = try CurrentIdentity(config: config)
+
+        let gitconfig = try current.target.gitconfigFile.readContents()
+        let publicKey = try current.target.publicKeyFile.readContents()
+
+        return (current: current.target.name, gitconfig: gitconfig, publicKey: publicKey)
     }
 
-    override func printSuccess(_ value: Void) {
-        print("Successful")
+    override func printSuccess(_ value: (current: String, gitconfig: String, publicKey: String)) {
+        print("Current Git identity: \(value.current)")
+        print("")
+        print("Git config contents:")
+        print("--------------------")
+        print(value.gitconfig)
+        print("Public key:")
+        print("-----------")
+        print(value.publicKey)
     }
 }
 
