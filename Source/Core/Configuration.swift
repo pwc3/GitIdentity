@@ -14,12 +14,11 @@ public struct Configuration {
 
     public var gitconfigPath: String
 
-    public init() {
-        self.init(sshPath: NSString("~/.ssh").expandingTildeInPath,
-                  gitconfigPath: NSString("~").expandingTildeInPath)
-    }
+    public static let defaultSshPath = NSString("~/.ssh").expandingTildeInPath
 
-    public init(sshPath: String, gitconfigPath: String) {
+    public static let defaultGitconfigPath = NSString("~").expandingTildeInPath
+
+    public init(sshPath: String = defaultSshPath, gitconfigPath: String = defaultGitconfigPath) {
         self.sshPath = sshPath
         self.gitconfigPath = gitconfigPath
     }

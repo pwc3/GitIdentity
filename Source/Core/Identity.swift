@@ -29,6 +29,8 @@ public class Identity {
             throw GitIdentityError.inconsistentIdentities(files: files)
         }
         self.name = name
+
+        _ = try filesAreAllSymlinks()
     }
 
     var files: [IdentityFile] {
@@ -72,7 +74,7 @@ public class Identity {
         let gitconfigNames = Set(gitconfigFiles.map { $0.identity })
 
         let names = sshNames.intersection(gitconfigNames).subtracting([CurrentIdentity.identifier])
-        return names.compactMap { try? Identity.read(name: $0, config: config) }
+        return names.compactMap { try? Identity.read(name: $0, config: config) }.sorted(by: { $0.name < $1.name })
     }
 }
 

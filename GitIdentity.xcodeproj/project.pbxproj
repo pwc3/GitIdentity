@@ -26,6 +26,7 @@
 		C5A0D78422A22B9100D9A17C /* Sandbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A0D78222A22B8500D9A17C /* Sandbox.swift */; };
 		C5A0D78D22A2316F00D9A17C /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51D8FED22A061EC006C2181 /* Action.swift */; };
 		C5A0D78E22A2316F00D9A17C /* ActionParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51D8FEE22A061EC006C2181 /* ActionParser.swift */; };
+		C5A0D79022A2386900D9A17C /* IdentityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A0D78F22A2386900D9A17C /* IdentityTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		C52C520922A1A23B0094CCBC /* IdentityFileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityFileType.swift; sourceTree = "<group>"; };
 		C5A0D77E22A1C91500D9A17C /* Operations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operations.swift; sourceTree = "<group>"; };
 		C5A0D78222A22B8500D9A17C /* Sandbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sandbox.swift; sourceTree = "<group>"; };
+		C5A0D78F22A2386900D9A17C /* IdentityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,9 +198,10 @@
 		C51D8FF622A06219006C2181 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				C51D8FF922A06219006C2181 /* Info.plist */,
 				C51D8FFF22A06251006C2181 /* ActionParserTests.swift */,
 				C51D901822A07954006C2181 /* IdentityFileTests.swift */,
+				C5A0D78F22A2386900D9A17C /* IdentityTests.swift */,
+				C51D8FF922A06219006C2181 /* Info.plist */,
 				C5A0D78222A22B8500D9A17C /* Sandbox.swift */,
 			);
 			path = Tests;
@@ -376,6 +379,7 @@
 				C51D900022A06251006C2181 /* ActionParserTests.swift in Sources */,
 				C5A0D78422A22B9100D9A17C /* Sandbox.swift in Sources */,
 				C51D901922A07954006C2181 /* IdentityFileTests.swift in Sources */,
+				C5A0D79022A2386900D9A17C /* IdentityTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

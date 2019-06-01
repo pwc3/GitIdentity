@@ -57,3 +57,26 @@ class Sandbox {
         try FileManager.default.removeItem(at: root)
     }
 }
+
+extension Sandbox {
+    static func testContents() throws -> Sandbox {
+        let fs = try Sandbox()
+
+        try fs.create(".bashrc")
+        try fs.create(".bash_history")
+        try fs.create(".gitconfig_identity_personal")
+        try fs.create(".gitconfig_identity_work")
+        try fs.create(".ssh/config")
+        try fs.create(".ssh/id_rsa_git_personal")
+        try fs.create(".ssh/id_rsa_git_personal.pub")
+        try fs.create(".ssh/id_rsa_git_work")
+        try fs.create(".ssh/id_rsa_git_work.pub")
+        try fs.create(".ssh/known_hosts")
+
+        try fs.createSymlink(at: ".gitconfig_identity_current", destination: ".gitconfig_identity_personal")
+        try fs.createSymlink(at: ".ssh/id_rsa_git_current", destination: ".ssh/id_rsa_git_personal")
+        try fs.createSymlink(at: ".ssh/id_rsa_git_current.pub", destination: ".ssh/id_rsa_git_personal.pub")
+
+        return fs
+    }
+}
