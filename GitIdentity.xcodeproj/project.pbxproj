@@ -22,11 +22,16 @@
 		C52C520622A0C94D0094CCBC /* CurrentIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C520522A0C94D0094CCBC /* CurrentIdentity.swift */; };
 		C52C520822A1A0190094CCBC /* GitIdentityError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C520722A1A0190094CCBC /* GitIdentityError.swift */; };
 		C52C520A22A1A23B0094CCBC /* IdentityFileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C520922A1A23B0094CCBC /* IdentityFileType.swift */; };
-		C5A0D78122A1C9AC00D9A17C /* Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A0D77E22A1C91500D9A17C /* Operations.swift */; };
 		C5A0D78422A22B9100D9A17C /* Sandbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A0D78222A22B8500D9A17C /* Sandbox.swift */; };
 		C5A0D78D22A2316F00D9A17C /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51D8FED22A061EC006C2181 /* Action.swift */; };
 		C5A0D78E22A2316F00D9A17C /* ActionParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51D8FEE22A061EC006C2181 /* ActionParser.swift */; };
 		C5A0D79022A2386900D9A17C /* IdentityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A0D78F22A2386900D9A17C /* IdentityTests.swift */; };
+		C5A0D79222A2DEFB00D9A17C /* GitIdentityOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A0D79122A2DEFB00D9A17C /* GitIdentityOperation.swift */; };
+		C5A0D79422A2DF1100D9A17C /* CurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A0D79322A2DF1100D9A17C /* CurrentOperation.swift */; };
+		C5A0D79622A2DF3000D9A17C /* ListOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A0D79522A2DF3000D9A17C /* ListOperation.swift */; };
+		C5A0D79822A2DF4300D9A17C /* PrintOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A0D79722A2DF4300D9A17C /* PrintOperation.swift */; };
+		C5A0D79A22A2DF5100D9A17C /* UseOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A0D79922A2DF5100D9A17C /* UseOperation.swift */; };
+		C5A0D79C22A2DF5D00D9A17C /* HelpOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A0D79B22A2DF5D00D9A17C /* HelpOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,9 +94,14 @@
 		C52C520522A0C94D0094CCBC /* CurrentIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentIdentity.swift; sourceTree = "<group>"; };
 		C52C520722A1A0190094CCBC /* GitIdentityError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitIdentityError.swift; sourceTree = "<group>"; };
 		C52C520922A1A23B0094CCBC /* IdentityFileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityFileType.swift; sourceTree = "<group>"; };
-		C5A0D77E22A1C91500D9A17C /* Operations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operations.swift; sourceTree = "<group>"; };
 		C5A0D78222A22B8500D9A17C /* Sandbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sandbox.swift; sourceTree = "<group>"; };
 		C5A0D78F22A2386900D9A17C /* IdentityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityTests.swift; sourceTree = "<group>"; };
+		C5A0D79122A2DEFB00D9A17C /* GitIdentityOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitIdentityOperation.swift; sourceTree = "<group>"; };
+		C5A0D79322A2DF1100D9A17C /* CurrentOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentOperation.swift; sourceTree = "<group>"; };
+		C5A0D79522A2DF3000D9A17C /* ListOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOperation.swift; sourceTree = "<group>"; };
+		C5A0D79722A2DF4300D9A17C /* PrintOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintOperation.swift; sourceTree = "<group>"; };
+		C5A0D79922A2DF5100D9A17C /* UseOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseOperation.swift; sourceTree = "<group>"; };
+		C5A0D79B22A2DF5D00D9A17C /* HelpOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,15 +192,11 @@
 		C51D8FE522A061D2006C2181 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				C51D8FED22A061EC006C2181 /* Action.swift */,
-				C51D8FEE22A061EC006C2181 /* ActionParser.swift */,
+				C5A0D79E22A2E06500D9A17C /* Action */,
 				C51D901C22A08150006C2181 /* Configuration.swift */,
-				C52C520522A0C94D0094CCBC /* CurrentIdentity.swift */,
 				C52C520722A1A0190094CCBC /* GitIdentityError.swift */,
-				C51D901A22A07F1D006C2181 /* Identity.swift */,
-				C51D901622A069D5006C2181 /* IdentityFile.swift */,
-				C52C520922A1A23B0094CCBC /* IdentityFileType.swift */,
-				C5A0D77E22A1C91500D9A17C /* Operations.swift */,
+				C5A0D79F22A2E06D00D9A17C /* Identity */,
+				C5A0D79D22A2DF6900D9A17C /* Operations */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -212,6 +218,39 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C5A0D79D22A2DF6900D9A17C /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				C5A0D79322A2DF1100D9A17C /* CurrentOperation.swift */,
+				C5A0D79122A2DEFB00D9A17C /* GitIdentityOperation.swift */,
+				C5A0D79B22A2DF5D00D9A17C /* HelpOperation.swift */,
+				C5A0D79522A2DF3000D9A17C /* ListOperation.swift */,
+				C5A0D79722A2DF4300D9A17C /* PrintOperation.swift */,
+				C5A0D79922A2DF5100D9A17C /* UseOperation.swift */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
+		C5A0D79E22A2E06500D9A17C /* Action */ = {
+			isa = PBXGroup;
+			children = (
+				C51D8FED22A061EC006C2181 /* Action.swift */,
+				C51D8FEE22A061EC006C2181 /* ActionParser.swift */,
+			);
+			path = Action;
+			sourceTree = "<group>";
+		};
+		C5A0D79F22A2E06D00D9A17C /* Identity */ = {
+			isa = PBXGroup;
+			children = (
+				C52C520522A0C94D0094CCBC /* CurrentIdentity.swift */,
+				C51D901A22A07F1D006C2181 /* Identity.swift */,
+				C51D901622A069D5006C2181 /* IdentityFile.swift */,
+				C52C520922A1A23B0094CCBC /* IdentityFileType.swift */,
+			);
+			path = Identity;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -387,11 +426,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5A0D78122A1C9AC00D9A17C /* Operations.swift in Sources */,
+				C5A0D79822A2DF4300D9A17C /* PrintOperation.swift in Sources */,
 				C51D901B22A07F1D006C2181 /* Identity.swift in Sources */,
 				C51D901D22A08150006C2181 /* Configuration.swift in Sources */,
+				C5A0D79622A2DF3000D9A17C /* ListOperation.swift in Sources */,
+				C5A0D79C22A2DF5D00D9A17C /* HelpOperation.swift in Sources */,
+				C5A0D79A22A2DF5100D9A17C /* UseOperation.swift in Sources */,
 				C52C520822A1A0190094CCBC /* GitIdentityError.swift in Sources */,
+				C5A0D79222A2DEFB00D9A17C /* GitIdentityOperation.swift in Sources */,
 				C52C520622A0C94D0094CCBC /* CurrentIdentity.swift in Sources */,
+				C5A0D79422A2DF1100D9A17C /* CurrentOperation.swift in Sources */,
 				C5A0D78D22A2316F00D9A17C /* Action.swift in Sources */,
 				C52C520A22A1A23B0094CCBC /* IdentityFileType.swift in Sources */,
 				C51D901722A069D5006C2181 /* IdentityFile.swift in Sources */,
