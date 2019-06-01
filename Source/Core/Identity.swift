@@ -19,7 +19,6 @@ public class Identity {
     public let gitconfigFile: IdentityFile
 
     public init(privateKeyFile: IdentityFile, publicKeyFile: IdentityFile, gitconfigFile: IdentityFile) throws {
-
         self.privateKeyFile = privateKeyFile
         self.publicKeyFile = publicKeyFile
         self.gitconfigFile = gitconfigFile

@@ -9,19 +9,6 @@
 import GitIdentityCore
 import Foundation
 
-func list(config: Configuration) throws -> [String: Bool] {
-    let current = try CurrentIdentity(config: config).targetName
-    let identities = Identity.identities(config: config)
-
-    var result = [String: Bool]()
-    for id in identities {
-        let name = id.name
-        result[name] = (name == current)
-    }
-
-    return result
-}
-
 func main(args: [String]) throws -> Int32 {
     let config = Configuration()
 

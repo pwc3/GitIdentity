@@ -51,14 +51,14 @@ public class IdentityFile {
     }
 
     static func files(inDirectories directories: [String]) -> [IdentityFile] {
-        return directories.map { files(inDirectory: $0) }.flatMap { $0 }
+        return directories.map { files(inDirectory: $0) }.flatMap { $0 }.sorted(by: { $0.path < $1.path })
     }
 
     static func files(inDirectory directory: String) -> [IdentityFile] {
         let filenames = (try? FileManager.default.contentsOfDirectory(atPath: directory)) ?? []
         let dir: NSString = directory as NSString
 
-        return files(inDirectoryContents: filenames.map { dir.appendingPathComponent($0) })
+        return files(inDirectoryContents: filenames.map { dir.appendingPathComponent($0) }).sorted(by: { $0.path < $1.path })
     }
 
     static func files(inDirectoryContents contents: [String]) -> [IdentityFile] {
