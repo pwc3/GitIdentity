@@ -74,21 +74,39 @@ class Sandbox {
     func destroy() throws {
         try FileManager.default.removeItem(at: root)
     }
-}
 
-extension Sandbox {
+    static let gitconfigPersonal = """
+[user]
+    name = Your Name
+    email = personal@email.address
+"""
+
+    static let publicKeyPersonal = """
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC5iRLTyBal1owgzE6M+/tLxPIEtqd9yT1vI/kk2ykM0KFUac8WCI65YId28t8hOVxP+AufAdeVXaSr4ZuVl9BPgwpo7ZS1ls8GW5prxkArmwG2MuJkQS1AipJ53Zng0w2DF0oCa/FcusSxz5y7nvAdcLM5cYJoAjWdhluQ0loe1m8KJM2Bl0A/2tpfsi1vHugvds4d9T6q4uYqImaWJ4hOuRot52ygDyN/i3IsqTVVzDae7q0F9TCjvBA1QGbo8Km6uUGN5wNi6fcLgsxdezITQNVChvFvLVRi5ve5l+BhdprDwUnpxVdwkNa1U2Tyu6cRnxwLnYo5WliBgAWrxFz3 personal@email.address
+"""
+
+    static let gitconfigWork = """
+[user]
+    name = Your Name
+    email = work@email.address
+"""
+
+    static let publicKeyWork = """
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC5iRLTyBal1owgzE6M+/tLxPIEtqd9yT1vI/kk2ykM0KFUac8WCI65YId28t8hOVxP+AufAdeVXaSr4ZuVl9BPgwpo7ZS1ls8GW5prxkArmwG2MuJkQS1AipJ53Zng0w2DF0oCa/FcusSxz5y7nvAdcLM5cYJoAjWdhluQ0loe1m8KJM2Bl0A/2tpfsi1vHugvds4d9T6q4uYqImaWJ4hOuRot52ygDyN/i3IsqTVVzDae7q0F9TCjvBA1QGbo8Km6uUGN5wNi6fcLgsxdezITQNVChvFvLVRi5ve5l+BhdprDwUnpxVdwkNa1U2Tyu6cRnxwLnYo5WliBgAWrxFz3 work@email.address
+"""
+
     static func testContents() throws -> Sandbox {
         let fs = try Sandbox()
 
         try fs.create(".bashrc")
         try fs.create(".bash_history")
-        try fs.create(".gitconfig_identity_personal")
-        try fs.create(".gitconfig_identity_work")
+        try fs.create(".gitconfig_identity_personal", contents: gitconfigPersonal)
+        try fs.create(".gitconfig_identity_work", contents: gitconfigWork)
         try fs.create(".ssh/config")
         try fs.create(".ssh/id_rsa_git_personal")
-        try fs.create(".ssh/id_rsa_git_personal.pub")
+        try fs.create(".ssh/id_rsa_git_personal.pub", contents: publicKeyPersonal)
         try fs.create(".ssh/id_rsa_git_work")
-        try fs.create(".ssh/id_rsa_git_work.pub")
+        try fs.create(".ssh/id_rsa_git_work.pub", contents: publicKeyWork)
         try fs.create(".ssh/known_hosts")
 
         try fs.createSymlink(at: ".gitconfig_identity_current", destination: ".gitconfig_identity_personal")

@@ -28,10 +28,16 @@ import Foundation
 
 public class PrintOperation: GitIdentityOperation<PrintOperation.Result> {
 
-    public struct Result {
-        var current: String
-        var gitconfig: String
-        var publicKey: String
+    public struct Result: Equatable {
+        public var current: String
+        public var gitconfig: String
+        public var publicKey: String
+
+        public init(current: String, gitconfig: String, publicKey: String) {
+            self.current = current
+            self.gitconfig = gitconfig
+            self.publicKey = publicKey
+        }
     }
 
     override func execute() throws -> Result {

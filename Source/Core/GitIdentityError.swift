@@ -49,4 +49,6 @@ public enum GitIdentityError: Error {
     case invalidIdentity(symlinks: [IdentityFile], notSymlinks: [IdentityFile])
 
     case currentIdentityContainsNonSymlinks
+
+    case identityContainsSymlinks
 }

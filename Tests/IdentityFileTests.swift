@@ -27,31 +27,7 @@
 @testable import GitIdentityCore
 import XCTest
 
-class IdentityFileTests: XCTestCase {
-
-    private static var fs: Sandbox!
-
-    override class func setUp() {
-        super.setUp()
-        fs = try! Sandbox.testContents()
-    }
-
-    override class func tearDown() {
-        try! fs.destroy()
-        super.tearDown()
-    }
-
-    private var fs: Sandbox! {
-        return IdentityFileTests.fs
-    }
-
-    private var rootPath: String {
-        return fs.root.path
-    }
-
-    private var sshPath: String {
-        return fs.path(".ssh")
-    }
+class IdentityFileTests: SandboxTestCase {
 
     func testParsePathGitConfig() throws {
         let f = try IdentityFile(path: fs.path(".gitconfig_identity_personal"))
@@ -121,12 +97,6 @@ class IdentityFileTests: XCTestCase {
 
     func testUnrecognizedFilename() throws {
         XCTAssertThrowsError(try IdentityFile(path: "/Users/me/Dropbox"))
-    }
-
-    func verify(_ identityFile: IdentityFile, _ identity: String, _ type: IdentityFileType, _ path: String, file: StaticString = #file, line: UInt = #line) {
-        XCTAssertEqual(identityFile.identity, identity, file: file, line: line)
-        XCTAssertEqual(identityFile.type, type, file: file, line: line)
-        XCTAssertEqual(identityFile.path, fs.path(path), file: file, line: line)
     }
 
     func testFindFiles() {

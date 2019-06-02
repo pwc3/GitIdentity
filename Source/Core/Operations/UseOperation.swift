@@ -27,18 +27,21 @@
 import Foundation
 
 public class UseOperation: GitIdentityOperation<Void> {
-    
-    let identity: String
 
-    init(config: Configuration, printOutput: Bool, identity: String) {
+    private let identity: String
+
+    public init(config: Configuration, printOutput: Bool, identity: String) {
         self.identity = identity
         super.init(config: config, printOutput: printOutput)
     }
 
     override func execute() throws -> Void {
+        let current = try CurrentIdentity(config: config)
+        let new = try Identity.read(name: identity, config: config)
+        try current.change(to: new)
     }
 
     override func printSuccess(_ value: Void) {
-        print("Successful")
+        print("Current identity changed to \(identity)")
     }
 }

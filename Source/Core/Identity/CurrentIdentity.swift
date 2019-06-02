@@ -26,7 +26,7 @@
 
 import Foundation
 
-public struct CurrentIdentity {
+public class CurrentIdentity {
 
     public static let identifier = "current"
 
@@ -34,9 +34,9 @@ public struct CurrentIdentity {
 
     let symlinks: Identity
 
-    public let destination: Identity
+    public private(set) var destination: Identity
 
-    public init(config: Configuration) throws {
+    public convenience init(config: Configuration) throws {
         let symlinks = try Identity.read(name: CurrentIdentity.identifier, config: config)
         guard try symlinks.filesAreAllSymlinks() else {
             throw GitIdentityError.currentIdentityContainsNonSymlinks
@@ -45,12 +45,37 @@ public struct CurrentIdentity {
         let destination = try Identity(privateKeyFile: try symlinks.privateKeyFile.resolveSymlink(),
                                        publicKeyFile: try symlinks.publicKeyFile.resolveSymlink(),
                                        gitconfigFile: try symlinks.gitconfigFile.resolveSymlink())
+        if try destination.filesAreAllSymlinks() {
+            throw GitIdentityError.identityContainsSymlinks
+        }
+
         self.init(symlinks: symlinks, destination: destination)
     }
 
     private init(symlinks: Identity, destination: Identity) {
         self.symlinks = symlinks
         self.destination = destination
+    }
+
+    public func change(to newIdentity: Identity) throws {
+        if try newIdentity.filesAreAllSymlinks() {
+            throw GitIdentityError.identityContainsSymlinks
+        }
+
+        let fm = FileManager.default
+
+        try fm.removeItem(atPath: symlinks.gitconfigFile.path)
+        try fm.removeItem(atPath: symlinks.publicKeyFile.path)
+        try fm.removeItem(atPath: symlinks.privateKeyFile.path)
+
+        try fm.createSymbolicLink(atPath: symlinks.gitconfigFile.path,
+                                  withDestinationPath: newIdentity.gitconfigFile.path)
+        try fm.createSymbolicLink(atPath: symlinks.publicKeyFile.path,
+                                  withDestinationPath: newIdentity.publicKeyFile.path)
+        try fm.createSymbolicLink(atPath: symlinks.privateKeyFile.path,
+                                  withDestinationPath: newIdentity.privateKeyFile.path)
+
+        destination = newIdentity
     }
 }
 

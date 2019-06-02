@@ -34,7 +34,7 @@ public class GitIdentityOperation<SuccessType>: Operation {
 
     public private(set) var result: Result<SuccessType, Error>?
 
-    init(config: Configuration, printOutput: Bool) {
+    public init(config: Configuration, printOutput: Bool) {
         self.config = config
         self.printOutput = printOutput
     }

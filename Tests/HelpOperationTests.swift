@@ -1,8 +1,8 @@
 //
-//  HelpOperation.swift
-//  GitIdentityCore
+//  HelpOperationTests.swift
+//  GitIdentityTests
 //
-//  Created by Paul Calnan on 6/1/19.
+//  Created by Paul Calnan on 6/2/19.
 //  Copyright (C) 2018-2019 Anodized Software, Inc.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
@@ -24,31 +24,14 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-import Foundation
+import GitIdentityCore
+import XCTest
 
-public class HelpOperation: GitIdentityOperation<String> {
+class HelpOperationTests: SandboxTestCase {
 
-    public static let usage: String = [
-        "git-identity: Manages multiple Git identity configurations (SSH keys, .gitconfig files).",
-        "",
-        "Commands:",
-        " * git identity current",
-        "     prints the current identity",
-        " * git identity list",
-        "     lists the available identities",
-        " * git identity print",
-        "     prints information about the current identity",
-        " * git identity use NAME",
-        "     changes the current identity to NAME",
-        " * git identity help",
-        "     prints this message"
-    ].joined(separator: "\n")
-
-    override func execute() throws -> String {
-        return HelpOperation.usage
-    }
-
-    override func printSuccess(_ value: String) {
-        print(value)
+    func testOperation() {
+        let op = HelpOperation(config: config, printOutput: true)
+        op.start()
+        verify(op.result, HelpOperation.usage)
     }
 }
