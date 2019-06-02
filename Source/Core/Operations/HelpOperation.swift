@@ -26,9 +26,9 @@
 
 import Foundation
 
-public class HelpOperation: GitIdentityOperation<[String]> {
+public class HelpOperation: GitIdentityOperation<String> {
 
-    override func execute() throws -> [String] {
+    override func execute() throws -> String {
         return [
             "git-identity: Manages multiple Git identity configurations (SSH keys, .gitconfig files).",
             "",
@@ -43,10 +43,10 @@ public class HelpOperation: GitIdentityOperation<[String]> {
             "     changes the current identity to NAME",
             " * git identity help",
             "     prints this message"
-        ]
+        ].joined(separator: "\n")
     }
 
-    override func printSuccess(_ value: [String]) {
-        print(value.joined(separator: "\n"))
+    override func printSuccess(_ value: String) {
+        print(value)
     }
 }

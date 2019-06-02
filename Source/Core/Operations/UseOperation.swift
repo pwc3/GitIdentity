@@ -27,6 +27,7 @@
 import Foundation
 
 public class UseOperation: GitIdentityOperation<Void> {
+    
     let identity: String
 
     init(config: Configuration, printOutput: Bool, identity: String) {

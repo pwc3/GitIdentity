@@ -26,18 +26,24 @@
 
 import Foundation
 
-public class PrintOperation: GitIdentityOperation<(current: String, gitconfig: String, publicKey: String)> {
+public class PrintOperation: GitIdentityOperation<PrintOperation.Result> {
 
-    override func execute() throws -> (current: String, gitconfig: String, publicKey: String) {
+    public struct Result {
+        var current: String
+        var gitconfig: String
+        var publicKey: String
+    }
+
+    override func execute() throws -> Result {
         let current = try CurrentIdentity(config: config)
 
         let gitconfig = try current.destination.gitconfigFile.readContents().trimmingCharacters(in: .newlines)
         let publicKey = try current.destination.publicKeyFile.readContents().trimmingCharacters(in: .newlines)
 
-        return (current: current.destination.name, gitconfig: gitconfig, publicKey: publicKey)
+        return Result(current: current.destination.name, gitconfig: gitconfig, publicKey: publicKey)
     }
 
-    override func printSuccess(_ value: (current: String, gitconfig: String, publicKey: String)) {
+    override func printSuccess(_ value: Result) {
         let lines = [
             "Current Git identity: \(value.current)",
             "",
