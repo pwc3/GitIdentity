@@ -307,6 +307,7 @@
 				C51D8FD022A0616A006C2181 /* Sources */,
 				C51D8FD122A0616A006C2181 /* Frameworks */,
 				C51D8FD222A0616A006C2181 /* CopyFiles */,
+				C51F5CE822A41F20005D8716 /* Install to /usr/local/bin */,
 			);
 			buildRules = (
 			);
@@ -420,6 +421,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C51F5CE822A41F20005D8716 /* Install to /usr/local/bin */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"",
+			);
+			name = "Install to /usr/local/bin";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "cp \"$BUILT_PRODUCTS_DIR/git-identity\" /usr/local/bin\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C51D8FA122A060C3006C2181 /* Sources */ = {
