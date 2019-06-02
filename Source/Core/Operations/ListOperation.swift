@@ -28,7 +28,7 @@ import Foundation
 
 public class ListOperation: GitIdentityOperation<[String: Bool]> {
     override func execute() throws -> [String: Bool] {
-        let current = try CurrentIdentity(config: config).targetName
+        let current = try CurrentIdentity(config: config).destination.name
         let identities = Identity.identities(config: config)
 
         var result = [String: Bool]()

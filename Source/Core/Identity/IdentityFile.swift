@@ -104,7 +104,7 @@ public class IdentityFile {
         let file = try IdentityFile(path: dest)
 
         guard file.type === self.type else {
-            throw GitIdentityError.symlinkTypeMismatch(sourceType: type, targetType: file.type)
+            throw GitIdentityError.symlinkTypeMismatch(symlinkType: type, destinationType: file.type)
         }
 
         return file

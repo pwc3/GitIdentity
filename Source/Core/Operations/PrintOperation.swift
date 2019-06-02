@@ -31,10 +31,10 @@ public class PrintOperation: GitIdentityOperation<(current: String, gitconfig: S
     override func execute() throws -> (current: String, gitconfig: String, publicKey: String) {
         let current = try CurrentIdentity(config: config)
 
-        let gitconfig = try current.target.gitconfigFile.readContents().trimmingCharacters(in: .newlines)
-        let publicKey = try current.target.publicKeyFile.readContents().trimmingCharacters(in: .newlines)
+        let gitconfig = try current.destination.gitconfigFile.readContents().trimmingCharacters(in: .newlines)
+        let publicKey = try current.destination.publicKeyFile.readContents().trimmingCharacters(in: .newlines)
 
-        return (current: current.target.name, gitconfig: gitconfig, publicKey: publicKey)
+        return (current: current.destination.name, gitconfig: gitconfig, publicKey: publicKey)
     }
 
     override func printSuccess(_ value: (current: String, gitconfig: String, publicKey: String)) {

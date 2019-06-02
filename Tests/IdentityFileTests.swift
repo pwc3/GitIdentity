@@ -165,11 +165,11 @@ class IdentityFileTests: XCTestCase {
 
         XCTAssertThrowsError(try gitconfigPersonal.resolveSymlink())
 
-        let gitconfigSymlinkTarget = try gitconfigSymlink.resolveSymlink()
-        XCTAssertFalse(gitconfigSymlinkTarget.isSymlink)
-        verify(gitconfigSymlinkTarget, "personal", .gitconfig, ".gitconfig_identity_personal")
+        let gitconfigSymlinkDestination = try gitconfigSymlink.resolveSymlink()
+        XCTAssertFalse(gitconfigSymlinkDestination.isSymlink)
+        verify(gitconfigSymlinkDestination, "personal", .gitconfig, ".gitconfig_identity_personal")
 
-        XCTAssertEqual(gitconfigPersonal.path, gitconfigSymlinkTarget.path)
+        XCTAssertEqual(gitconfigPersonal.path, gitconfigSymlinkDestination.path)
     }
 
     func testSymlinkTypeMismatch() throws {

@@ -34,7 +34,7 @@ public struct CurrentIdentity {
 
     let symlinks: Identity
 
-    public let target: Identity
+    public let destination: Identity
 
     public init(config: Configuration) throws {
         let symlinks = try Identity.read(name: CurrentIdentity.identifier, config: config)
@@ -42,24 +42,20 @@ public struct CurrentIdentity {
             throw GitIdentityError.currentIdentityContainsNonSymlinks
         }
 
-        let target = try Identity(privateKeyFile: try symlinks.privateKeyFile.resolveSymlink(),
-                                  publicKeyFile: try symlinks.publicKeyFile.resolveSymlink(),
-                                  gitconfigFile: try symlinks.gitconfigFile.resolveSymlink())
-        self.init(symlinks: symlinks, target: target)
+        let destination = try Identity(privateKeyFile: try symlinks.privateKeyFile.resolveSymlink(),
+                                       publicKeyFile: try symlinks.publicKeyFile.resolveSymlink(),
+                                       gitconfigFile: try symlinks.gitconfigFile.resolveSymlink())
+        self.init(symlinks: symlinks, destination: destination)
     }
 
-    private init(symlinks: Identity, target: Identity) {
+    private init(symlinks: Identity, destination: Identity) {
         self.symlinks = symlinks
-        self.target = target
-    }
-
-    public var targetName: String {
-        return target.name
+        self.destination = destination
     }
 }
 
 extension CurrentIdentity: CustomDebugStringConvertible {
     public var debugDescription: String {
-        return "CurrentIdentity(name: \(name), targetName: \(targetName), symlinks: \(symlinks.debugDescription), target: \(target.debugDescription))"
+        return "CurrentIdentity(name: \(name), destination.name: \(destination.name), symlinks: \(symlinks.debugDescription), destination: \(destination.debugDescription))"
     }
 }

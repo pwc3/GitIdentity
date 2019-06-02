@@ -42,7 +42,7 @@ public enum GitIdentityError: Error {
 
     case cannotDetermineIdentityFromFile(atPath: String)
 
-    case symlinkTypeMismatch(sourceType: IdentityFileType, targetType: IdentityFileType)
+    case symlinkTypeMismatch(symlinkType: IdentityFileType, destinationType: IdentityFileType)
 
     case inconsistentIdentities(files: [IdentityFile])
 
