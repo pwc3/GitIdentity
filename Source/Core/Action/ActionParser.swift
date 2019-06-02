@@ -30,7 +30,8 @@ public struct ActionParser {
 
     public static func parse(arguments inputArguments: [String]) -> Result<Action, GitIdentityError> {
         guard inputArguments.count > 0 else {
-            return .failure(.incorrectNumberOfArguments)
+            // Default to "list" if no arguments provided
+            return .success(.list)
         }
 
         let command = inputArguments[0]

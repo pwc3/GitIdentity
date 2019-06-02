@@ -48,7 +48,7 @@ class ActionParserTests: XCTestCase {
 
     func testNoArguments() {
         check(actual: ActionParser.parse(arguments: []),
-              expected: .failure(.incorrectNumberOfArguments))
+              expected: .success(.list))
     }
 
     func testCurrent() {
