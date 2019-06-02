@@ -32,7 +32,7 @@ public class IdentityFile {
 
     public let type: IdentityFileType
 
-    public let identity: String
+    public let identityName: String
 
     required init(path: String, type: IdentityFileType, identity: String) throws {
         guard FileManager.default.fileExists(atPath: path) else {
@@ -41,7 +41,7 @@ public class IdentityFile {
 
         self.path = (path as NSString).expandingTildeInPath
         self.type = type
-        self.identity = identity
+        self.identityName = identity
     }
 
     convenience init(path: String) throws {
@@ -104,7 +104,7 @@ public class IdentityFile {
         let file = try IdentityFile(path: dest)
 
         guard file.type === self.type else {
-            throw GitIdentityError.symlinkTypeMismatch(symlinkType: type, destinationType: file.type)
+            throw GitIdentityError.symlinkTypeMismatch(identity: identityName, symlinkPath: path, symlinkType: type, destinationPath: dest, destinationType: file.type)
         }
 
         return file
@@ -117,6 +117,6 @@ public class IdentityFile {
 
 extension IdentityFile: CustomDebugStringConvertible {
     public var debugDescription: String {
-        return "IdentityFile(path: \((path as NSString).abbreviatingWithTildeInPath), type: \(type), identity: \(identity), isSymlink: \(isSymlink))"
+        return "IdentityFile(path: \((path as NSString).abbreviatingWithTildeInPath), type: \(type), identity: \(identityName), isSymlink: \(isSymlink))"
     }
 }

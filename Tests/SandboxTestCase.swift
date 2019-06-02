@@ -54,7 +54,7 @@ class SandboxTestCase: XCTestCase {
     }
 
     func verify(_ identityFile: IdentityFile, _ identity: String, _ type: IdentityFileType, _ path: String, file: StaticString = #file, line: UInt = #line) {
-        XCTAssertEqual(identityFile.identity, identity, file: file, line: line)
+        XCTAssertEqual(identityFile.identityName, identity, file: file, line: line)
         XCTAssertEqual(identityFile.type, type, file: file, line: line)
         XCTAssertEqual(identityFile.path, fs.path(path), file: file, line: line)
     }

@@ -46,7 +46,7 @@ public class CurrentIdentity {
                                        publicKeyFile: try symlinks.publicKeyFile.resolveSymlink(),
                                        gitconfigFile: try symlinks.gitconfigFile.resolveSymlink())
         if try destination.filesAreAllSymlinks() {
-            throw GitIdentityError.identityContainsSymlinks
+            throw GitIdentityError.identityContainsSymlinks(name: destination.name)
         }
 
         self.init(symlinks: symlinks, destination: destination)
@@ -59,7 +59,7 @@ public class CurrentIdentity {
 
     public func change(to newIdentity: Identity) throws {
         if try newIdentity.filesAreAllSymlinks() {
-            throw GitIdentityError.identityContainsSymlinks
+            throw GitIdentityError.identityContainsSymlinks(name: newIdentity.name)
         }
 
         let fm = FileManager.default

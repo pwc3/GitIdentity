@@ -31,7 +31,7 @@ class IdentityFileTests: SandboxTestCase {
 
     func testParsePathGitConfig() throws {
         let f = try IdentityFile(path: fs.path(".gitconfig_identity_personal"))
-        XCTAssertEqual(f.identity, "personal")
+        XCTAssertEqual(f.identityName, "personal")
         XCTAssertTrue(f.type == .gitconfig)
     }
 
@@ -40,20 +40,20 @@ class IdentityFileTests: SandboxTestCase {
         XCTAssertThrowsError(try IdentityFile(path: fs.path(".gitconfig_identity_personal"), type: .privateKey))
 
         let f = try IdentityFile(path: fs.path(".gitconfig_identity_personal"), type: .gitconfig)
-        XCTAssertEqual(f.identity, "personal")
+        XCTAssertEqual(f.identityName, "personal")
         XCTAssertEqual(f.type, .gitconfig)
     }
 
     func testGitConfig() throws {
         let f = try IdentityFile(type: .gitconfig, inDirectory: rootPath, forIdentity: "personal")
-        XCTAssertEqual(f.identity, "personal")
+        XCTAssertEqual(f.identityName, "personal")
         XCTAssertEqual(f.path, fs.path(".gitconfig_identity_personal"))
         XCTAssertEqual(f.type, .gitconfig)
     }
 
     func testParsePathPrivateKey() throws {
         let f = try IdentityFile(path: fs.path(".ssh/id_rsa_git_personal"))
-        XCTAssertEqual(f.identity, "personal")
+        XCTAssertEqual(f.identityName, "personal")
         XCTAssertEqual(f.type, .privateKey)
     }
 
@@ -62,20 +62,20 @@ class IdentityFileTests: SandboxTestCase {
         XCTAssertThrowsError(try IdentityFile(path: fs.path(".ssh/id_rsa_git_personal"), type: .publicKey))
 
         let f = try IdentityFile(path: fs.path(".ssh/id_rsa_git_personal"), type: .privateKey)
-        XCTAssertEqual(f.identity, "personal")
+        XCTAssertEqual(f.identityName, "personal")
         XCTAssertEqual(f.type, .privateKey)
     }
 
     func testPrivateKey() throws {
         let f = try IdentityFile(type: .privateKey, inDirectory: sshPath, forIdentity: "personal")
-        XCTAssertEqual(f.identity, "personal")
+        XCTAssertEqual(f.identityName, "personal")
         XCTAssertEqual(f.path, fs.path(".ssh/id_rsa_git_personal"))
         XCTAssertEqual(f.type, .privateKey)
     }
 
     func testParsePathPublicKey() throws {
         let f = try IdentityFile(path: fs.path(".ssh/id_rsa_git_personal.pub"))
-        XCTAssertEqual(f.identity, "personal")
+        XCTAssertEqual(f.identityName, "personal")
         XCTAssertEqual(f.type, .publicKey)
     }
 
@@ -84,13 +84,13 @@ class IdentityFileTests: SandboxTestCase {
         XCTAssertThrowsError(try IdentityFile(path: fs.path(".ssh/id_rsa_git_personal.pub"), type: .privateKey))
 
         let f = try IdentityFile(path: fs.path(".ssh/id_rsa_git_personal.pub"), type: .publicKey)
-        XCTAssertEqual(f.identity, "personal")
+        XCTAssertEqual(f.identityName, "personal")
         XCTAssertEqual(f.type, .publicKey)
     }
 
     func testPublicKey() throws {
         let f = try IdentityFile(type: .publicKey, inDirectory: sshPath, forIdentity: "personal")
-        XCTAssertEqual(f.identity, "personal")
+        XCTAssertEqual(f.identityName, "personal")
         XCTAssertEqual(f.path, fs.path(".ssh/id_rsa_git_personal.pub"))
         XCTAssertEqual(f.type, .publicKey)
     }

@@ -42,9 +42,9 @@ public class Identity {
         self.gitconfigFile = gitconfigFile
 
         let files = [privateKeyFile, publicKeyFile, gitconfigFile]
-        let fileIdentities = Set(files.map { $0.identity })
+        let fileIdentities = Set(files.map { $0.identityName })
         guard fileIdentities.count == 1, let name = fileIdentities.first else {
-            throw GitIdentityError.inconsistentIdentities(files: files)
+            throw GitIdentityError.inconsistentIdentities(files: files, identities: Array(fileIdentities).sorted())
         }
         self.name = name
 
@@ -67,7 +67,8 @@ public class Identity {
             return false
         }
         else {
-            throw GitIdentityError.invalidIdentity(symlinks: files.filter { $0.isSymlink },
+            throw GitIdentityError.invalidIdentity(name: name,
+                                                   symlinks: files.filter { $0.isSymlink },
                                                    notSymlinks: files.filter { !$0.isSymlink })
         }
     }
@@ -88,8 +89,8 @@ public class Identity {
         let sshFiles = IdentityFile.files(inDirectory: config.sshPath)
         let gitconfigFiles = IdentityFile.files(inDirectory: config.gitconfigPath)
 
-        let sshNames = Set(sshFiles.map { $0.identity })
-        let gitconfigNames = Set(gitconfigFiles.map { $0.identity })
+        let sshNames = Set(sshFiles.map { $0.identityName })
+        let gitconfigNames = Set(gitconfigFiles.map { $0.identityName })
 
         let names = sshNames.intersection(gitconfigNames).subtracting([CurrentIdentity.identifier])
         return names.compactMap { try? Identity.read(name: $0, config: config) }.sorted(by: { $0.name < $1.name })
