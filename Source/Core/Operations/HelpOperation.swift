@@ -28,24 +28,8 @@ import Foundation
 
 public class HelpOperation: GitIdentityOperation<String> {
 
-    public static let usage: String = [
-        "git-identity: Manages multiple Git identity configurations (SSH keys, .gitconfig files).",
-        "",
-        "Commands:",
-        " * git identity current",
-        "     prints the current identity",
-        " * git identity list",
-        "     lists the available identities",
-        " * git identity print",
-        "     prints information about the current identity",
-        " * git identity use NAME",
-        "     changes the current identity to NAME",
-        " * git identity help",
-        "     prints this message"
-    ].joined(separator: "\n")
-
     override func execute() throws -> String {
-        return HelpOperation.usage
+        return Usage.usage
     }
 
     override func printSuccess(_ value: String) {

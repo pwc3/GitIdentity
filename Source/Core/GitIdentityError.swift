@@ -28,8 +28,6 @@ import Foundation
 
 public enum GitIdentityError: Error {
 
-    case compoundError([Error])
-
     case incorrectNumberOfArguments
 
     case unrecognizedCommand(String)
@@ -38,17 +36,60 @@ public enum GitIdentityError: Error {
 
     case fileIsNotSymlink(atPath: String)
 
-    case unrecognizedFileType(atPath: String)
-
     case cannotDetermineIdentityFromFile(atPath: String)
 
+    // TODO: Add symlink and destination to error
     case symlinkTypeMismatch(symlinkType: IdentityFileType, destinationType: IdentityFileType)
 
+    // TODO: Rename and add information for error message
     case inconsistentIdentities(files: [IdentityFile])
 
+    // TODO: Add identity name
     case invalidIdentity(symlinks: [IdentityFile], notSymlinks: [IdentityFile])
 
     case currentIdentityContainsNonSymlinks
 
+    // TODO: Add identity name
     case identityContainsSymlinks
+}
+
+extension GitIdentityError: LocalizedError {
+
+    private func paths(for files: [IdentityFile]) -> String {
+        return files.map { $0.path }.joined(separator: ", ")
+    }
+
+    public var errorDescription: String? {
+        switch self {
+        case .incorrectNumberOfArguments:
+            return "Incorrect number of arguments"
+
+        case .unrecognizedCommand(let command):
+            return "Unrecognized command: \"\(command)\""
+
+        case .fileNotFound(let path):
+            return "File not found at \(path)"
+
+        case .fileIsNotSymlink(let path):
+            return "Expected symlink at \(path)"
+
+        case .cannotDetermineIdentityFromFile(let path):
+            return "Cannot determine identity from file at \(path)"
+
+        case .symlinkTypeMismatch(let symlinkType, let destinationType):
+            return "Symlink is \(symlinkType.description), destination is \(destinationType.description)"
+
+        case .inconsistentIdentities(let files):
+            return "Inconsistent identities in files: \(paths(for: files))"
+
+        case .invalidIdentity(let symlinks, let notSymlinks):
+            return "Invalid identity with mixed symlinks (\(paths(for: symlinks))) and files (\(paths(for: notSymlinks)))"
+
+        case .currentIdentityContainsNonSymlinks:
+            return "The \"current\" identity must be comprised solely of symlinks."
+
+        case .identityContainsSymlinks:
+            return "The specified identity must not be comprised of any symlinks."
+        }
+    }
 }

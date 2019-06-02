@@ -32,6 +32,6 @@ class HelpOperationTests: SandboxTestCase {
     func testOperation() {
         let op = HelpOperation(config: config, printOutput: true)
         op.start()
-        verify(op.result, HelpOperation.usage)
+        verify(op.result, Usage.usage)
     }
 }

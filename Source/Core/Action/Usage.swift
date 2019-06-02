@@ -1,8 +1,8 @@
 //
-//  main.swift
-//  git-identity
+//  Usage.swift
+//  GitIdentity
 //
-//  Created by Paul Calnan on 5/30/19.
+//  Created by Paul Calnan on 6/2/19.
 //  Copyright (C) 2018-2019 Anodized Software, Inc.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
@@ -24,28 +24,23 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-import GitIdentityCore
 import Foundation
 
-func main(args: [String]) throws -> Int32 {
-    let config = Configuration()
+public struct Usage {
 
-    switch ActionParser.parse(arguments: Array(args[1...])) {
-    case .success(let action):
-        let operation = action.createOperation(config: config)
-        operation.main()
-
-    case .failure(let error):
-        print(error.localizedDescription)
-    }
-
-    return 0
-}
-
-do {
-    exit(try main(args: CommandLine.arguments))
-}
-catch {
-    print(error)
-    exit(255)
+    public static let usage: String = [
+        "git-identity: Manages multiple Git identity configurations (SSH keys, .gitconfig files).",
+        "",
+        "Commands:",
+        " * git identity current",
+        "     prints the current identity",
+        " * git identity list",
+        "     lists the available identities",
+        " * git identity print",
+        "     prints information about the current identity",
+        " * git identity use NAME",
+        "     changes the current identity to NAME",
+        " * git identity help",
+        "     prints this message"
+    ].joined(separator: "\n")
 }
