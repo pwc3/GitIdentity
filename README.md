@@ -162,5 +162,9 @@ You can verify the account associated with your identity by running the followin
     $ ssh github.com
     PTY allocation request failed on channel 0
     Hi My-Personal-Account! You've successfully authenticated, but GitHub does not provide shell access.
-    Connection to github.com closed.
+    Connection to github.com closed.kl
+
+## Credits
+
+The GitIdentity GUI application uses the [Git logo](https://git-scm.com/downloads/logos) by [Jason Long](https://twitter.com/jasonlong) and is licensed under the [Creative Commons Attribution 3.0 Unported License](https://creativecommons.org/licenses/by/3.0/).
 
