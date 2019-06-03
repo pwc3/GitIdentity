@@ -1,8 +1,8 @@
 //
-//  Usage.swift
+//  VersionOperation.swift
 //  GitIdentity
 //
-//  Created by Paul Calnan on 6/2/19.
+//  Created by Paul Calnan on 6/3/19.
 //  Copyright (C) 2018-2019 Anodized Software, Inc.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
@@ -26,23 +26,20 @@
 
 import Foundation
 
-public struct Usage {
+public class VersionOperation: GitIdentityOperation<String> {
 
-    public static let usage: String = [
-        "git-identity: Manages multiple Git identity configurations (SSH keys, .gitconfig files).",
-        "",
-        "Commands:",
-        " * git identity current",
-        "     prints the current identity",
-        " * git identity list",
-        "     lists the available identities",
-        " * git identity print",
-        "     prints information about the current identity",
-        " * git identity use NAME",
-        "     changes the current identity to NAME",
-        " * git identity version",
-        "     prints the current tool version",
-        " * git identity help",
-        "     prints this message"
-    ].joined(separator: "\n")
+    override func execute() throws -> String {
+
+        // This requires INFOPLIST_FILE and CREATE_INFOPLIST_SECTION_IN_BINARY to be
+        // set for the CLI target.
+
+        guard let release = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
+            fatalError("Could not read CFBundleShortVersionString")
+        }
+        return release
+    }
+
+    override func printSuccess(_ value: String) {
+        print("Version \(value)")
+    }
 }

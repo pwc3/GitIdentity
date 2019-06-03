@@ -150,7 +150,15 @@ class IdentityMenu: NSObject {
     }
 
     private func headerItem() -> NSMenuItem {
-        return NSMenuItem(title: "Git Identity", action: nil, keyEquivalent: "")
+        let version: String
+        if let v = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            version = "v\(v)"
+        }
+        else {
+            version = ""
+        }
+
+        return NSMenuItem(title: "Git Identity \(version)", action: nil, keyEquivalent: "")
     }
 
     private func quitItem() -> NSMenuItem {

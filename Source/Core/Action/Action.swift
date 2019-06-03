@@ -36,6 +36,8 @@ public enum Action: Equatable {
 
     case use(identity: String)
 
+    case version
+
     case help
 
     public func createOperation(config: Configuration) -> Operation {
@@ -51,6 +53,9 @@ public enum Action: Equatable {
 
         case .use(let identity):
             return UseOperation(config: config, printOutput: true, identity: identity)
+
+        case .version:
+            return VersionOperation(config: config, printOutput: true)
 
         case .help:
             return HelpOperation(config: config, printOutput: true)

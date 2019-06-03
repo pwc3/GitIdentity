@@ -43,6 +43,7 @@
 		C5A0D79822A2DF4300D9A17C /* PrintOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A0D79722A2DF4300D9A17C /* PrintOperation.swift */; };
 		C5A0D79A22A2DF5100D9A17C /* UseOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A0D79922A2DF5100D9A17C /* UseOperation.swift */; };
 		C5A0D79C22A2DF5D00D9A17C /* HelpOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A0D79B22A2DF5D00D9A17C /* HelpOperation.swift */; };
+		C5D50FBC22A5BCF30009FFCE /* VersionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D50FBA22A5BCD10009FFCE /* VersionOperation.swift */; };
 		C5FE71C522A56DCB009FF8D4 /* InitialSetupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FE71C422A56DCB009FF8D4 /* InitialSetupTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -132,6 +133,8 @@
 		C5A0D79722A2DF4300D9A17C /* PrintOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintOperation.swift; sourceTree = "<group>"; };
 		C5A0D79922A2DF5100D9A17C /* UseOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseOperation.swift; sourceTree = "<group>"; };
 		C5A0D79B22A2DF5D00D9A17C /* HelpOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpOperation.swift; sourceTree = "<group>"; };
+		C5D50FB922A5B8620009FFCE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C5D50FBA22A5BCD10009FFCE /* VersionOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionOperation.swift; sourceTree = "<group>"; };
 		C5FE71C422A56DCB009FF8D4 /* InitialSetupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialSetupTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -216,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				C51D8FDB22A06181006C2181 /* main.swift */,
+				C5D50FB922A5B8620009FFCE /* Info.plist */,
 			);
 			path = CLI;
 			sourceTree = "<group>";
@@ -288,6 +292,7 @@
 				C5A0D79522A2DF3000D9A17C /* ListOperation.swift */,
 				C5A0D79722A2DF4300D9A17C /* PrintOperation.swift */,
 				C5A0D79922A2DF5100D9A17C /* UseOperation.swift */,
+				C5D50FBA22A5BCD10009FFCE /* VersionOperation.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -547,6 +552,7 @@
 				C5A0D79A22A2DF5100D9A17C /* UseOperation.swift in Sources */,
 				C52C520822A1A0190094CCBC /* GitIdentityError.swift in Sources */,
 				C5A0D79222A2DEFB00D9A17C /* GitIdentityOperation.swift in Sources */,
+				C5D50FBC22A5BCF30009FFCE /* VersionOperation.swift in Sources */,
 				C52C520622A0C94D0094CCBC /* CurrentIdentity.swift in Sources */,
 				C5A0D79422A2DF1100D9A17C /* CurrentOperation.swift in Sources */,
 				C5A0D78D22A2316F00D9A17C /* Action.swift in Sources */,
@@ -712,8 +718,9 @@
 				CODE_SIGN_ENTITLEMENTS = Source/GUI/GitIdentity.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1.1.0;
 				DEVELOPMENT_TEAM = HHWT4HF657;
-				INFOPLIST_FILE = "$(SRCROOT)/Source/GUI/Info.plist";
+				INFOPLIST_FILE = Source/GUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -722,6 +729,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -733,8 +741,9 @@
 				CODE_SIGN_ENTITLEMENTS = Source/GUI/GitIdentity.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1.1.0;
 				DEVELOPMENT_TEAM = HHWT4HF657;
-				INFOPLIST_FILE = "$(SRCROOT)/Source/GUI/Info.plist";
+				INFOPLIST_FILE = Source/GUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -742,6 +751,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.anodizedsoftware.GitIdentity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
@@ -750,7 +760,10 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
+				CURRENT_PROJECT_VERSION = 1.1.0;
 				DEVELOPMENT_TEAM = HHWT4HF657;
+				INFOPLIST_FILE = Source/CLI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -759,6 +772,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -767,7 +781,10 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
+				CURRENT_PROJECT_VERSION = 1.1.0;
 				DEVELOPMENT_TEAM = HHWT4HF657;
+				INFOPLIST_FILE = Source/CLI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -775,6 +792,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
@@ -822,6 +840,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.1.0;
 				DEVELOPMENT_TEAM = HHWT4HF657;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				OTHER_LDFLAGS = "-ObjC";
@@ -830,6 +849,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -838,6 +858,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.1.0;
 				DEVELOPMENT_TEAM = HHWT4HF657;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				OTHER_LDFLAGS = "-ObjC";
@@ -847,6 +868,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};

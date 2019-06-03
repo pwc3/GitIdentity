@@ -95,4 +95,20 @@ class ActionParserTests: XCTestCase {
         check(actual: ActionParser.parse(arguments: ["foo", "bar", "baz"]),
               expected: .failure(.unrecognizedCommand("foo")))
     }
+
+    func testHelp() {
+        check(actual: ActionParser.parse(arguments: ["help"]),
+              expected: .success(.help))
+        check(actual: ActionParser.parse(arguments: ["-h"]),
+              expected: .success(.help))
+        check(actual: ActionParser.parse(arguments: ["-?"]),
+              expected: .success(.help))
+        check(actual: ActionParser.parse(arguments: ["--help"]),
+              expected: .success(.help))
+    }
+
+    func testVersion() {
+        check(actual: ActionParser.parse(arguments: ["version"]),
+              expected: .success(.version))
+    }
 }

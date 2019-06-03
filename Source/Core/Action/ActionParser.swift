@@ -61,6 +61,9 @@ public struct ActionParser {
         case "help", "-h", "--help", "-?":
             return .success(.help)
 
+        case "version":
+            return .success(.version)
+
         default:
             return .failure(.unrecognizedCommand(command))
         }
