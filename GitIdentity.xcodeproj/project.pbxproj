@@ -202,10 +202,9 @@
 		C51D8FC322A06115006C2181 /* GUI */ = {
 			isa = PBXGroup;
 			children = (
-				C51D8FC822A06115006C2181 /* AppDelegate.swift */,
 				C51F5CEB22A42175005D8716 /* Assets */,
+				C51F5CFA22A4DD0A005D8716 /* Classes */,
 				C51D8FC422A06115006C2181 /* GitIdentity.entitlements */,
-				C51F5CE922A4216B005D8716 /* IdentityMenu.swift */,
 				C51D8FC922A06115006C2181 /* Info.plist */,
 			);
 			path = GUI;
@@ -266,6 +265,15 @@
 				C51D8FC622A06115006C2181 /* MainMenu.xib */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		C51F5CFA22A4DD0A005D8716 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C51D8FC822A06115006C2181 /* AppDelegate.swift */,
+				C51F5CE922A4216B005D8716 /* IdentityMenu.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		C5A0D79D22A2DF6900D9A17C /* Operations */ = {
