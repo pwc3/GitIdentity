@@ -320,6 +320,7 @@
 				C51D8FA122A060C3006C2181 /* Sources */,
 				C51D8FA222A060C3006C2181 /* Frameworks */,
 				C51D8FA322A060C3006C2181 /* Resources */,
+				C51F5CFB22A4F514005D8716 /* Install to $HOME/Applications */,
 			);
 			buildRules = (
 			);
@@ -471,6 +472,24 @@
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "cp \"$BUILT_PRODUCTS_DIR/git-identity\" /usr/local/bin\n";
+		};
+		C51F5CFB22A4F514005D8716 /* Install to $HOME/Applications */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Install to $HOME/Applications";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "cp -R \"$INSTALL_DIR/GitIdentity.app\" \"$HOME/Applications/\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
