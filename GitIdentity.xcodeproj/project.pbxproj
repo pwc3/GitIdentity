@@ -20,6 +20,7 @@
 		C51D902022A082BD006C2181 /* libGitIdentityCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C51D900722A063F8006C2181 /* libGitIdentityCore.a */; };
 		C51F5CEA22A4216B005D8716 /* IdentityMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51F5CE922A4216B005D8716 /* IdentityMenu.swift */; };
 		C51F5CF422A4D5C1005D8716 /* libGitIdentityCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C51D900722A063F8006C2181 /* libGitIdentityCore.a */; };
+		C51F5CF922A4DB74005D8716 /* IdentityChangedNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51F5CF722A4DAA7005D8716 /* IdentityChangedNotification.swift */; };
 		C52C520622A0C94D0094CCBC /* CurrentIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C520522A0C94D0094CCBC /* CurrentIdentity.swift */; };
 		C52C520822A1A0190094CCBC /* GitIdentityError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C520722A1A0190094CCBC /* GitIdentityError.swift */; };
 		C52C520A22A1A23B0094CCBC /* IdentityFileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C520922A1A23B0094CCBC /* IdentityFileType.swift */; };
@@ -109,6 +110,7 @@
 		C51D901A22A07F1D006C2181 /* Identity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identity.swift; sourceTree = "<group>"; };
 		C51D901C22A08150006C2181 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		C51F5CE922A4216B005D8716 /* IdentityMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityMenu.swift; sourceTree = "<group>"; };
+		C51F5CF722A4DAA7005D8716 /* IdentityChangedNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityChangedNotification.swift; sourceTree = "<group>"; };
 		C52C520522A0C94D0094CCBC /* CurrentIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentIdentity.swift; sourceTree = "<group>"; };
 		C52C520722A1A0190094CCBC /* GitIdentityError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitIdentityError.swift; sourceTree = "<group>"; };
 		C52C520922A1A23B0094CCBC /* IdentityFileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityFileType.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 				C51D901C22A08150006C2181 /* Configuration.swift */,
 				C52C520722A1A0190094CCBC /* GitIdentityError.swift */,
 				C5A0D79F22A2E06D00D9A17C /* Identity */,
+				C51F5CF722A4DAA7005D8716 /* IdentityChangedNotification.swift */,
 				C5A0D79D22A2DF6900D9A17C /* Operations */,
 			);
 			path = Core;
@@ -509,6 +512,7 @@
 				C51D901D22A08150006C2181 /* Configuration.swift in Sources */,
 				C5A0D79622A2DF3000D9A17C /* ListOperation.swift in Sources */,
 				C5A0D79C22A2DF5D00D9A17C /* HelpOperation.swift in Sources */,
+				C51F5CF922A4DB74005D8716 /* IdentityChangedNotification.swift in Sources */,
 				C5A0D79A22A2DF5100D9A17C /* UseOperation.swift in Sources */,
 				C52C520822A1A0190094CCBC /* GitIdentityError.swift in Sources */,
 				C5A0D79222A2DEFB00D9A17C /* GitIdentityOperation.swift in Sources */,

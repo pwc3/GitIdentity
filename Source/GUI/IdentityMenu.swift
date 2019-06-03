@@ -55,6 +55,12 @@ class IdentityMenu: NSObject {
 
         super.init()
         updateState()
+
+        DistributedNotificationCenter.default().addObserver(self, selector: #selector(identityChanged(notification:)), name: IdentityChangedNotification.name, object: nil, suspensionBehavior: .deliverImmediately)
+    }
+
+    @objc private func identityChanged(notification: Notification) {
+        updateState()
     }
 
     private func attributedTitle(_ value: String) -> NSAttributedString {
