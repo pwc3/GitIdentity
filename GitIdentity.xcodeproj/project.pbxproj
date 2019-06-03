@@ -10,7 +10,6 @@
 		C51D8FCA22A06115006C2181 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C51D8FC522A06115006C2181 /* Assets.xcassets */; };
 		C51D8FCB22A06115006C2181 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C51D8FC622A06115006C2181 /* MainMenu.xib */; };
 		C51D8FCC22A06115006C2181 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51D8FC822A06115006C2181 /* AppDelegate.swift */; };
-		C51D8FCD22A06115006C2181 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C51D8FC922A06115006C2181 /* Info.plist */; };
 		C51D8FDC22A06181006C2181 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51D8FDB22A06181006C2181 /* main.swift */; };
 		C51D900022A06251006C2181 /* ActionParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51D8FFF22A06251006C2181 /* ActionParserTests.swift */; };
 		C51D901322A06516006C2181 /* libGitIdentityCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C51D900722A063F8006C2181 /* libGitIdentityCore.a */; };
@@ -19,6 +18,8 @@
 		C51D901B22A07F1D006C2181 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51D901A22A07F1D006C2181 /* Identity.swift */; };
 		C51D901D22A08150006C2181 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51D901C22A08150006C2181 /* Configuration.swift */; };
 		C51D902022A082BD006C2181 /* libGitIdentityCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C51D900722A063F8006C2181 /* libGitIdentityCore.a */; };
+		C51F5CEA22A4216B005D8716 /* IdentityMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51F5CE922A4216B005D8716 /* IdentityMenu.swift */; };
+		C51F5CF422A4D5C1005D8716 /* libGitIdentityCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C51D900722A063F8006C2181 /* libGitIdentityCore.a */; };
 		C52C520622A0C94D0094CCBC /* CurrentIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C520522A0C94D0094CCBC /* CurrentIdentity.swift */; };
 		C52C520822A1A0190094CCBC /* GitIdentityError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C520722A1A0190094CCBC /* GitIdentityError.swift */; };
 		C52C520A22A1A23B0094CCBC /* IdentityFileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C520922A1A23B0094CCBC /* IdentityFileType.swift */; };
@@ -52,6 +53,13 @@
 			remoteInfo = GitIdentityCore;
 		};
 		C51D901E22A082B9006C2181 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C51D8F9D22A060C3006C2181 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C51D900622A063F8006C2181;
+			remoteInfo = GitIdentityCore;
+		};
+		C51F5CF522A4D5C8005D8716 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C51D8F9D22A060C3006C2181 /* Project object */;
 			proxyType = 1;
@@ -100,6 +108,7 @@
 		C51D901822A07954006C2181 /* IdentityFileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityFileTests.swift; sourceTree = "<group>"; };
 		C51D901A22A07F1D006C2181 /* Identity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identity.swift; sourceTree = "<group>"; };
 		C51D901C22A08150006C2181 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		C51F5CE922A4216B005D8716 /* IdentityMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityMenu.swift; sourceTree = "<group>"; };
 		C52C520522A0C94D0094CCBC /* CurrentIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentIdentity.swift; sourceTree = "<group>"; };
 		C52C520722A1A0190094CCBC /* GitIdentityError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitIdentityError.swift; sourceTree = "<group>"; };
 		C52C520922A1A23B0094CCBC /* IdentityFileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityFileType.swift; sourceTree = "<group>"; };
@@ -127,6 +136,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C51F5CF422A4D5C1005D8716 /* libGitIdentityCore.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,10 +201,10 @@
 			isa = PBXGroup;
 			children = (
 				C51D8FC822A06115006C2181 /* AppDelegate.swift */,
-				C51D8FC522A06115006C2181 /* Assets.xcassets */,
+				C51F5CEB22A42175005D8716 /* Assets */,
 				C51D8FC422A06115006C2181 /* GitIdentity.entitlements */,
+				C51F5CE922A4216B005D8716 /* IdentityMenu.swift */,
 				C51D8FC922A06115006C2181 /* Info.plist */,
-				C51D8FC622A06115006C2181 /* MainMenu.xib */,
 			);
 			path = GUI;
 			sourceTree = "<group>";
@@ -246,6 +256,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C51F5CEB22A42175005D8716 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				C51D8FC522A06115006C2181 /* Assets.xcassets */,
+				C51D8FC622A06115006C2181 /* MainMenu.xib */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		C5A0D79D22A2DF6900D9A17C /* Operations */ = {
 			isa = PBXGroup;
 			children = (
@@ -294,6 +313,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C51F5CF622A4D5C8005D8716 /* PBXTargetDependency */,
 			);
 			name = GitIdentity;
 			productName = GitIdentity;
@@ -409,7 +429,6 @@
 			files = (
 				C51D8FCA22A06115006C2181 /* Assets.xcassets in Resources */,
 				C51D8FCB22A06115006C2181 /* MainMenu.xib in Resources */,
-				C51D8FCD22A06115006C2181 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,6 +468,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C51F5CEA22A4216B005D8716 /* IdentityMenu.swift in Sources */,
 				C51D8FCC22A06115006C2181 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -514,6 +534,11 @@
 			isa = PBXTargetDependency;
 			target = C51D900622A063F8006C2181 /* GitIdentityCore */;
 			targetProxy = C51D901E22A082B9006C2181 /* PBXContainerItemProxy */;
+		};
+		C51F5CF622A4D5C8005D8716 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C51D900622A063F8006C2181 /* GitIdentityCore */;
+			targetProxy = C51F5CF522A4D5C8005D8716 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
