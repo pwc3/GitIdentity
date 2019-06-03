@@ -166,5 +166,5 @@ You can verify the account associated with your identity by running the followin
 
 ## Credits
 
-The GitIdentity GUI application uses the [Git logo](https://git-scm.com/downloads/logos) by [Jason Long](https://twitter.com/jasonlong) and is licensed under the [Creative Commons Attribution 3.0 Unported License](https://creativecommons.org/licenses/by/3.0/).
+The `GitIdentity` GUI application uses the [Git logo](https://git-scm.com/downloads/logos) by [Jason Long](https://twitter.com/jasonlong) and is licensed under the [Creative Commons Attribution 3.0 Unported License](https://creativecommons.org/licenses/by/3.0/).
 
