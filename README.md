@@ -1,10 +1,13 @@
-# Multiple Git identities
+# Git Identity
 
-**NOTE** This is a work in progress. Check out the `master` branch for a complete working Python implementation of this project.
-
-This repo contains a Swift CLI application called `git-identity`. It manages some symlinks in your home directory and in your `.ssh` directory to allow you to switch between Git identities with different SSH keys and email addresses.
+Juggling multiple remote Git accounts is a hassle. This project provides tools that allow you to easily switch between these accounts. You need to do some initial setup described below. The tools then create and manage some symlinks in your home directory and in your `.ssh` directory which point to the configuration for the currently selected identity.
 
 Consider the case where you have a Github account for personal use and a Github account for work use. We'll call these accounts, or identities, `personal` and `work`. This solution will scale to arbitrarily many identities, but to keep things simple, we'll keep it to two in the examples here.
+
+This repo contains two Swift applications for managing your Git identity:
+
+- A CLI application called `git-identity`. Installing this on your path allows you to run `git identity` commands as described below.
+- A macOS GUI application called `GitIdentity`. This is a status bar app that allows you to see your current identity at a glance and to change identies with a click on the mouse.
 
 Using `git-identity`, with one command you can set which identity will currently be used by Git.
 
@@ -18,7 +21,11 @@ To use your `personal` identity, run:
 
 ## Installation
 
-Copy the `git-identity` binary to a directory on your `PATH`.
+- Clone this repo and open the `xcodeproj` file.
+- In the Project Navigator, select the `GitIdentity` project file.
+- Under the `GitIdentity` and `git-identity` targets, set the signing team.
+- Select the `git-identity` scheme and archive (from the Project > Archive menu). This will build and install the CLI binary to `/usr/local/bin`.
+- Select the `GitIdentity` scheme and archive (from the Project > Archive menu). This will build and install the GUI binary to `~/Applications`.
 
 ## Setup
 
@@ -156,3 +163,4 @@ You can verify the account associated with your identity by running the followin
     PTY allocation request failed on channel 0
     Hi My-Personal-Account! You've successfully authenticated, but GitHub does not provide shell access.
     Connection to github.com closed.
+
