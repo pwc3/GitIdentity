@@ -43,6 +43,7 @@
 		C5A0D79822A2DF4300D9A17C /* PrintOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A0D79722A2DF4300D9A17C /* PrintOperation.swift */; };
 		C5A0D79A22A2DF5100D9A17C /* UseOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A0D79922A2DF5100D9A17C /* UseOperation.swift */; };
 		C5A0D79C22A2DF5D00D9A17C /* HelpOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A0D79B22A2DF5D00D9A17C /* HelpOperation.swift */; };
+		C5FE71C522A56DCB009FF8D4 /* InitialSetupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FE71C422A56DCB009FF8D4 /* InitialSetupTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +132,7 @@
 		C5A0D79722A2DF4300D9A17C /* PrintOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintOperation.swift; sourceTree = "<group>"; };
 		C5A0D79922A2DF5100D9A17C /* UseOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseOperation.swift; sourceTree = "<group>"; };
 		C5A0D79B22A2DF5D00D9A17C /* HelpOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpOperation.swift; sourceTree = "<group>"; };
+		C5FE71C422A56DCB009FF8D4 /* InitialSetupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialSetupTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +249,7 @@
 				C5A0D78222A22B8500D9A17C /* Sandbox.swift */,
 				C52E8B9C22A38EFC00964E61 /* SandboxTestCase.swift */,
 				C52E8BA522A393A900964E61 /* UseOperationTests.swift */,
+				C5FE71C422A56DCB009FF8D4 /* InitialSetupTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 				C52E8BA022A38FE900964E61 /* HelpOperationTests.swift in Sources */,
 				C51D900022A06251006C2181 /* ActionParserTests.swift in Sources */,
 				C52E8B9E22A38F3D00964E61 /* SandboxTestCase.swift in Sources */,
+				C5FE71C522A56DCB009FF8D4 /* InitialSetupTests.swift in Sources */,
 				C5A0D78422A22B9100D9A17C /* Sandbox.swift in Sources */,
 				C52E8B9922A38B8800964E61 /* CurrentIdentityTests.swift in Sources */,
 				C52E8BA422A3927300964E61 /* PrintOperationTests.swift in Sources */,

@@ -36,11 +36,8 @@ public class UseOperation: GitIdentityOperation<Void> {
     }
 
     override func execute() throws -> Void {
-        let current = try CurrentIdentity(config: config)
         let new = try Identity.read(name: identity, config: config)
-        try current.change(to: new)
-
-        IdentityChangedNotification.post(currentIdentity: identity)
+        try CurrentIdentity.set(to: new, config: config)
     }
 
     override func printSuccess(_ value: Void) {

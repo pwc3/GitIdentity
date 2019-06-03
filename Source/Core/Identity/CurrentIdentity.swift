@@ -57,25 +57,31 @@ public class CurrentIdentity {
         self.destination = destination
     }
 
-    public func change(to newIdentity: Identity) throws {
+    @discardableResult
+    public static func set(to newIdentity: Identity, config: Configuration) throws -> CurrentIdentity {
         if try newIdentity.filesAreAllSymlinks() {
             throw GitIdentityError.identityContainsSymlinks(name: newIdentity.name)
         }
 
         let fm = FileManager.default
 
-        try fm.removeItem(atPath: symlinks.gitconfigFile.path)
-        try fm.removeItem(atPath: symlinks.publicKeyFile.path)
-        try fm.removeItem(atPath: symlinks.privateKeyFile.path)
+        let pathCurrentGitconfig = IdentityFile.path(forType: .gitconfig, inDirectory: config.gitconfigPath, forIdentity: identifier)
+        let pathCurrentPublicKey = IdentityFile.path(forType: .publicKey, inDirectory: config.sshPath, forIdentity: identifier)
+        let pathCurrentPrivateKey = IdentityFile.path(forType: .privateKey, inDirectory: config.sshPath, forIdentity: identifier)
 
-        try fm.createSymbolicLink(atPath: symlinks.gitconfigFile.path,
-                                  withDestinationPath: newIdentity.gitconfigFile.path)
-        try fm.createSymbolicLink(atPath: symlinks.publicKeyFile.path,
-                                  withDestinationPath: newIdentity.publicKeyFile.path)
-        try fm.createSymbolicLink(atPath: symlinks.privateKeyFile.path,
-                                  withDestinationPath: newIdentity.privateKeyFile.path)
+        for path in [pathCurrentGitconfig, pathCurrentPublicKey, pathCurrentPrivateKey] {
+            if fm.fileExists(atPath: path) {
+                try fm.removeItem(atPath: path)
+            }
+        }
 
-        destination = newIdentity
+        try fm.createSymbolicLink(atPath: pathCurrentGitconfig, withDestinationPath: newIdentity.gitconfigFile.path)
+        try fm.createSymbolicLink(atPath: pathCurrentPublicKey, withDestinationPath: newIdentity.publicKeyFile.path)
+        try fm.createSymbolicLink(atPath: pathCurrentPrivateKey, withDestinationPath: newIdentity.privateKeyFile.path)
+
+        IdentityChangedNotification.post(currentIdentity: newIdentity.name)
+
+        return try CurrentIdentity(config: config)
     }
 }
 

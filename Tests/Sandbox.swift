@@ -71,6 +71,11 @@ class Sandbox {
         try FileManager.default.createSymbolicLink(at: url(locationFilename), withDestinationURL: url(destinationFilename))
     }
 
+    func remove(_ filename: String) throws {
+        let url = self.url(filename)
+        try FileManager.default.removeItem(at: url)
+    }
+
     func destroy() throws {
         try FileManager.default.removeItem(at: root)
     }

@@ -63,9 +63,14 @@ public class IdentityFile {
     }
 
     convenience init(type: IdentityFileType, inDirectory directory: String, forIdentity identity: String) throws {
-        try self.init(path: (directory as NSString).appendingPathComponent(type.filename(forIdentity: identity)),
+        try self.init(path: IdentityFile.path(forType: type, inDirectory: directory, forIdentity: identity),
                       type: type,
                       identity: identity)
+    }
+
+    static func path(forType type: IdentityFileType, inDirectory directory: String, forIdentity identity: String) -> String {
+
+        return (directory as NSString).appendingPathComponent(type.filename(forIdentity: identity))
     }
 
     static func files(inDirectories directories: [String]) -> [IdentityFile] {

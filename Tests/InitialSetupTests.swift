@@ -1,8 +1,8 @@
 //
-//  CurrentIdentityTests.swift
+//  InitialSetupTests.swift
 //  GitIdentityTests
 //
-//  Created by Paul Calnan on 6/2/19.
+//  Created by Paul Calnan on 6/3/19.
 //  Copyright (C) 2018-2019 Anodized Software, Inc.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
@@ -27,28 +27,23 @@
 import GitIdentityCore
 import XCTest
 
-class CurrentIdentityTests: SandboxTestCase {
+class InitialSetupTests: SandboxTestCase {
 
-    func testCurrentIdentity() throws {
-        let current = try CurrentIdentity(config: config)
-        XCTAssertEqual(current.destination.name, "personal")
-        verify(current.destination.gitconfigFile, "personal", .gitconfig, ".gitconfig_identity_personal")
-        verify(current.destination.publicKeyFile, "personal", .publicKey, ".ssh/id_rsa_git_personal.pub")
-        verify(current.destination.privateKeyFile, "personal", .privateKey, ".ssh/id_rsa_git_personal")
+    override func setUp() {
+        super.setUp()
+        try! fs.remove(".gitconfig_identity_current")
+        try! fs.remove(".ssh/id_rsa_git_current")
+        try! fs.remove(".ssh/id_rsa_git_current.pub")
     }
 
-    func testChangeCurrentIdentity() throws {
-        let original = try CurrentIdentity(config: config)
-        XCTAssertEqual(original.destination.name, "personal")
-        verify(original.destination.gitconfigFile, "personal", .gitconfig, ".gitconfig_identity_personal")
-        verify(original.destination.publicKeyFile, "personal", .publicKey, ".ssh/id_rsa_git_personal.pub")
-        verify(original.destination.privateKeyFile, "personal", .privateKey, ".ssh/id_rsa_git_personal")
+    func testCurrentIdentity() {
+        XCTAssertThrowsError(try CurrentIdentity(config: config))
+    }
+
+    func testInitialSetup() throws {
+        XCTAssertThrowsError(try CurrentIdentity(config: config))
 
         let work = try Identity.read(name: "work", config: config)
-        XCTAssertEqual(work.name, "work")
-        verify(work.gitconfigFile, "work", .gitconfig, ".gitconfig_identity_work")
-        verify(work.publicKeyFile, "work", .publicKey, ".ssh/id_rsa_git_work.pub")
-        verify(work.privateKeyFile, "work", .privateKey, ".ssh/id_rsa_git_work")
 
         let updated = try CurrentIdentity.set(to: work, config: config)
         XCTAssertEqual(updated.destination.name, "work")
