@@ -1,8 +1,13 @@
-# Multiple Git identities
+# Git Identity
 
-This repo contains a Python script called `git-identity`. It manages some symlinks in your home directory and in your `.ssh` directory to allow you to switch between Git identities with different SSH keys and email addresses.
+Juggling multiple remote Git accounts is a hassle. This project provides tools that allow you to easily switch between these accounts. You need to do some initial setup described below. The tools then create and manage some symlinks in your home directory and in your `.ssh` directory which point to the configuration for the currently selected identity.
 
 Consider the case where you have a Github account for personal use and a Github account for work use. We'll call these accounts, or identities, `personal` and `work`. This solution will scale to arbitrarily many identities, but to keep things simple, we'll keep it to two in the examples here.
+
+This repo contains two Swift applications for managing your Git identity:
+
+- A CLI application called `git-identity`. Installing this on your path allows you to run `git identity` commands as described below.
+- A macOS GUI application called `GitIdentity`. This is a status bar app that allows you to see your current identity at a glance and to change identies with a click on the mouse.
 
 Using `git-identity`, with one command you can set which identity will currently be used by Git.
 
@@ -16,7 +21,11 @@ To use your `personal` identity, run:
 
 ## Installation
 
-Copy the `git-identity` script to a directory on your `PATH`.
+- Clone this repo and open the `xcodeproj` file.
+- In the Project Navigator, select the `GitIdentity` project file.
+- Under the `GitIdentity` and `git-identity` targets, set the signing team.
+- Select the `git-identity` scheme and archive (from the Project > Archive menu). This will build and install the CLI binary to `/usr/local/bin`.
+- Select the `GitIdentity` scheme and archive (from the Project > Archive menu). This will build and install the GUI binary to `~/Applications`.
 
 ## Setup
 
@@ -123,10 +132,15 @@ You can show more detailed information by running:
     $ git identity print
     Current Git identity: personal
 
-    User entries in `git config`
-    ----------------------------
-    user.name=Your Name
-    user.email=personal@email.address
+    Git config contents:
+    --------------------
+    [user]
+        name = Your Name
+        email = personal@email.address
+
+    Public key:
+    -----------
+    ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC5iRLTyBal1owgzE6M+/tLxPIEtqd9yT1vI/kk2ykM0KFUac8WCI65YId28t8hOVxP+AufAdeVXaSr4ZuVl9BPgwpo7ZS1ls8GW5prxkArmwG2MuJkQS1AipJ53Zng0w2DF0oCa/FcusSxz5y7nvAdcLM5cYJoAjWdhluQ0loe1m8KJM2Bl0A/2tpfsi1vHugvds4d9T6q4uYqImaWJ4hOuRot52ygDyN/i3IsqTVVzDae7q0F9TCjvBA1QGbo8Km6uUGN5wNi6fcLgsxdezITQNVChvFvLVRi5ve5l+BhdprDwUnpxVdwkNa1U2Tyu6cRnxwLnYo5WliBgAWrxFz3 personal@email.address
 
 ## Testing SSH Keys
 
@@ -148,4 +162,9 @@ You can verify the account associated with your identity by running the followin
     $ ssh github.com
     PTY allocation request failed on channel 0
     Hi My-Personal-Account! You've successfully authenticated, but GitHub does not provide shell access.
-    Connection to github.com closed.
+    Connection to github.com closed.kl
+
+## Credits
+
+The `GitIdentity` GUI application uses the [Git logo](https://git-scm.com/downloads/logos) by [Jason Long](https://twitter.com/jasonlong) and is licensed under the [Creative Commons Attribution 3.0 Unported License](https://creativecommons.org/licenses/by/3.0/).
+
