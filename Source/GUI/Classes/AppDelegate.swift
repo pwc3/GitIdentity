@@ -24,6 +24,7 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+import GitIdentityCore
 import Cocoa
 
 @NSApplicationMain
@@ -31,10 +32,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
 
-    let identityMenu = IdentityMenu()
+    var identityMenu: IdentityMenu!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+        do {
+            identityMenu = IdentityMenu(config: try Configuration.load())
+        }
+        catch {
+            let alert = NSAlert(error: error)
+            alert.window.title = "Git Identity"
+            alert.runModal()
+            exit(1)
+        }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
