@@ -1,8 +1,8 @@
 //
-//  VersionOperation.swift
-//  GitIdentity
+//  VersionOperationTests.swift
+//  GitIdentityTests
 //
-//  Created by Paul Calnan on 6/3/19.
+//  Created by Paul Calnan on 6/5/19.
 //  Copyright (C) 2018-2019 Anodized Software, Inc.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
@@ -24,23 +24,20 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-import Foundation
+import GitIdentityCore
+import XCTest
 
-/// Operation to get the current version of the tool.
-public class VersionOperation: GitIdentityOperation<String> {
+class VersionOperationTests: SandboxTestCase {
 
-    override func execute() throws -> String {
+    func testOperation() throws {
+        let expected = Bundle(for: VersionOperationTests.self).infoDictionary?["CFBundleShortVersionString"] as? String
+        XCTAssertNotNil(expected)
 
-        // This requires INFOPLIST_FILE and CREATE_INFOPLIST_SECTION_IN_BINARY to be
-        // set for the CLI target.
+        let op = VersionOperation(config: try createTestConfig(), printOutput: true)
+        op.start()
 
-        guard let release = Bundle(for: VersionOperation.self).infoDictionary?["CFBundleShortVersionString"] as? String else {
-            fatalError("Could not read CFBundleShortVersionString")
-        }
-        return release
-    }
-
-    override func printSuccess(_ value: String) {
-        print("Version \(value)")
+        let actual = try op.result?.get()
+        XCTAssertNotNil(actual)
+        XCTAssertEqual(expected, actual)
     }
 }

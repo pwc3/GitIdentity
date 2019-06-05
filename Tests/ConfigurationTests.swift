@@ -29,7 +29,8 @@ import XCTest
 
 class ConfigurationTests: XCTestCase {
 
-    let json = """
+    func testRead() throws {
+        let json = """
 {
     "current": {
         "gitconfig": "~/.gitconfig_identity_current",
@@ -49,7 +50,6 @@ class ConfigurationTests: XCTestCase {
 }
 """
 
-    func testRead() throws {
         let config = try Configuration.load(data: json.data(using: .utf8)!)
         XCTAssertEqual(config.identityNames.count, 2)
         XCTAssertEqual(config.identityNames, ["personal", "work"])
@@ -65,5 +65,54 @@ class ConfigurationTests: XCTestCase {
         XCTAssertEqual(work?.gitconfig, File(path: "~/.gitconfig_identity_work"))
         XCTAssertEqual(work?.privateKey, File(path: "~/.ssh/id_rsa_git_work"))
         XCTAssertEqual(work?.publicKey, File(path: "~/.ssh/id_rsa_git_work.pub"))
+    }
+
+    func testReadMissingCurrent() {
+        let json = """
+{
+    "personal": {
+        "gitconfig": "~/.gitconfig_identity_personal",
+        "privateKey": "~/.ssh/id_rsa_git_personal",
+        "publicKey": "~/.ssh/id_rsa_git_personal.pub"
+    },
+    "work": {
+        "gitconfig": "~/.gitconfig_identity_work",
+        "privateKey": "~/.ssh/id_rsa_git_work",
+        "publicKey": "~/.ssh/id_rsa_git_work.pub"
+    }
+}
+"""
+
+        XCTAssertThrowsError(try Configuration.load(data: json.data(using: .utf8)!))
+    }
+
+    func testMissingName() throws {
+        let json = """
+{
+    "current": {
+        "gitconfig": "~/.gitconfig_identity_current",
+        "privateKey": "~/.ssh/id_rsa_git_current",
+        "publicKey": "~/.ssh/id_rsa_git_current.pub"
+    },
+    "personal": {
+        "gitconfig": "~/.gitconfig_identity_personal",
+        "privateKey": "~/.ssh/id_rsa_git_personal",
+        "publicKey": "~/.ssh/id_rsa_git_personal.pub"
+    },
+    "work": {
+        "gitconfig": "~/.gitconfig_identity_work",
+        "privateKey": "~/.ssh/id_rsa_git_work",
+        "publicKey": "~/.ssh/id_rsa_git_work.pub"
+    }
+}
+"""
+
+        let config = try Configuration.load(data: json.data(using: .utf8)!)
+        XCTAssertNil(config.identity(forName: "fnord"))
+
+        let identity = Identity(gitconfig: File(path: "~/.gitconfig_identity_fnord"),
+                                privateKey: File(path: "~/.ssh/id_rsa_git_fnord"),
+                                publicKey: File(path: "~/.ssh/id_rsa_git_fnord.pub"))
+        XCTAssertNil(config.name(for: identity))
     }
 }
