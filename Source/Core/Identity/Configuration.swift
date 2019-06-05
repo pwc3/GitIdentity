@@ -76,6 +76,7 @@ public struct Configuration {
         }
 
         try currentIdentitySymlinks.symlink(to: identity)
+        IdentityChangedNotification.post(currentIdentity: name)
     }
 }
 
