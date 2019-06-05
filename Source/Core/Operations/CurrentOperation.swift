@@ -26,6 +26,7 @@
 
 import Foundation
 
+/// Operation to get the current identity name.
 public class CurrentOperation: GitIdentityOperation<String> {
     
     override func execute() throws -> String {

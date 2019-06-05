@@ -26,8 +26,17 @@
 
 import Foundation
 
+/**
+ Parses the command-line arguments, returning an `Action` value that can be used to create an `Operation` to execute the selected command
+ */
 public struct ActionParser {
 
+    /**
+     Parses the specified arguments array. Note that if this is taken directly from the command line (i.e., from `CommandLine.arguments`), the first element (containing the application name) must be stripped off before passing to this function.
+
+     - Parameter arguments: A string array containing the command and any optional argument.
+     - Returns: A `Result` indicating success (with an associated `Action` value) or error (with an associated `GitIdentityError` value).
+     */
     public static func parse(arguments inputArguments: [String]) -> Result<Action, GitIdentityError> {
         guard inputArguments.count > 0 else {
             // Default to "list" if no arguments provided

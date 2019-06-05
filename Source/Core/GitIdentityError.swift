@@ -26,20 +26,28 @@
 
 import Foundation
 
+/// Indicates an error condition detected by the application.
 public enum GitIdentityError: Error {
 
+    /// Indicates that the expected number of arguments was not provided.
     case incorrectNumberOfArguments
 
+    /// Indicates that the specified command is not recognized.
     case unrecognizedCommand(String)
 
+    /// Indicates that the file at the specified path does not exist.
     case fileNotFound(atPath: String)
 
-    case fileIsNotSymlink(atPath: String)
+    /// Indicates that the file at the specified path is not a symbolic link.
+    case fileIsNotSymbolicLink(atPath: String)
 
-    case currentIdentitySymlinksNotDefined
+    /// Indicates that the `current` identity is not defined in the configuration file.
+    case currentIdentityNotDefined
 
+    /// Indicates that the files referenced by the `current` identity's symbolic links do not match any of the identities in the configuration.
     case currentIdentityNameNotFound
 
+    /// The specified identity is not defined.
     case identityNotFound(name: String)
 }
 
@@ -56,11 +64,11 @@ extension GitIdentityError: LocalizedError {
         case .fileNotFound(let path):
             return "File not found at \(path)"
 
-        case .fileIsNotSymlink(let path):
-            return "Expected symlink at \(path)"
+        case .fileIsNotSymbolicLink(let path):
+            return "Expected symbolic link at \(path)"
 
-        case .currentIdentitySymlinksNotDefined:
-            return "The configuration file does not specify a \"current\" configuration defining the symlink locations."
+        case .currentIdentityNotDefined:
+            return "The configuration file does not specify a \"current\" configuration defining the symbolic link locations."
 
         case .currentIdentityNameNotFound:
             return "The files referenced by the \"current\" identity's symbolic links do not match any identities defined in the configuration file."

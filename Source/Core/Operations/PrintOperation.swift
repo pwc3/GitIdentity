@@ -26,11 +26,19 @@
 
 import Foundation
 
+/// Operation to print information about the current identity. The result value contains the current identity name, the contents of the gitconfig file and the contents of the public key file.
 public class PrintOperation: GitIdentityOperation<PrintOperation.Result> {
 
+    /// Operation result object.
     public struct Result: Equatable {
+
+        /// The name of the current identity.
         public var current: String
+
+        /// The contents of the current identity's gitconfig file.
         public var gitconfig: String
+
+        /// The contents of the current identity's public key file.
         public var publicKey: String
 
         public init(current: String, gitconfig: String, publicKey: String) {

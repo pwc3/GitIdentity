@@ -26,6 +26,7 @@
 
 import Foundation
 
+/// Operation to change the current identity. The identity to use is passed to the initializer.
 public class UseOperation: GitIdentityOperation<Void> {
 
     private let identity: String

@@ -26,6 +26,7 @@
 
 import Foundation
 
+/// Operation to generate a help string consisting of the CLI usage description.
 public class HelpOperation: GitIdentityOperation<String> {
 
     override func execute() throws -> String {

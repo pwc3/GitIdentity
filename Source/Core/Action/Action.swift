@@ -26,20 +26,35 @@
 
 import Foundation
 
+/**
+ Represents an action that can be performed by the command-line tool. This is the output of the `ActionParser` which is used to parse command-line arguments.
+ */
 public enum Action: Equatable {
 
+    /// Print the current identity.
     case current
 
+    /// List the available identities.
     case list
 
+    /// Print information about the current identity.
     case print
 
+    /// Change the current identity to use the specified identity.
     case use(identity: String)
 
+    /// Print the version number.
     case version
 
+    /// Print help information.
     case help
 
+    /**
+     Create an operation to execute this command.
+
+     - Parameter config: the current configuration, passed to the appropriate operation's initializer.
+     - Returns: An `Operation` to execute this command.
+     */
     public func createOperation(config: Configuration) -> Operation {
         switch self {
         case .current:

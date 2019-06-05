@@ -72,11 +72,11 @@ class Sandbox {
         return url.path
     }
 
-    func createSymlink(at locationFilename: String, destination destinationFilename: String) throws {
+    func createSymbolicLink(at locationFilename: String, destination destinationFilename: String) throws {
         let locationPath = path(locationFilename)
         let destinationPath = path(destinationFilename)
         try FileManager.default.createSymbolicLink(atPath: locationPath, withDestinationPath: destinationPath)
-        print("Created symlink at \(locationPath) with destination \(destinationPath)")
+        print("Created symbolic link at \(locationPath) with destination \(destinationPath)")
     }
 
     func remove(_ filename: String) throws {
@@ -144,9 +144,9 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC5iRLTyBal1owgzE6M+/tLxPIEtqd9yT1vI/kk2ykM
         try fs.create(".ssh/id_rsa_git_work.pub", contents: publicKeyWork)
         try fs.create(".ssh/known_hosts")
 
-        try fs.createSymlink(at: ".gitconfig_identity_current", destination: ".gitconfig_identity_personal")
-        try fs.createSymlink(at: ".ssh/id_rsa_git_current", destination: ".ssh/id_rsa_git_personal")
-        try fs.createSymlink(at: ".ssh/id_rsa_git_current.pub", destination: ".ssh/id_rsa_git_personal.pub")
+        try fs.createSymbolicLink(at: ".gitconfig_identity_current", destination: ".gitconfig_identity_personal")
+        try fs.createSymbolicLink(at: ".ssh/id_rsa_git_current", destination: ".ssh/id_rsa_git_personal")
+        try fs.createSymbolicLink(at: ".ssh/id_rsa_git_current.pub", destination: ".ssh/id_rsa_git_personal.pub")
 
         return fs
     }

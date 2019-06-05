@@ -26,23 +26,33 @@
 
 import Foundation
 
+/// Represents a file path.
 public struct File: Equatable {
 
+    /// The path of this file. The initializer automatically expands any tilde in the path (via `NSString.expandingTildeInPath`).
     public var path: String
 
+    /**
+     Creates a new `File` value with the specified path. The created object's path will have any tilde expanded (via `NSString.expandingTildeInPath`).
+
+     - Parameter path: The path of the file.
+     */
     public init(path: String) {
         self.path = (path as NSString).expandingTildeInPath
     }
 
+    /// A file URL with this file's path.
     public var url: URL {
         return URL(fileURLWithPath: path)
     }
 
+    /// Indicates whether a file exists at this path.
     public var exists: Bool {
         return FileManager.default.fileExists(atPath: path)
     }
 
-    public var isSymlink: Bool {
+    /// Indicates whether a file exists at this path and is a symbolic link. If an error is raised by the underlying `FileManager` call, `false` will be returned.
+    public var isSymbolicLink: Bool {
         do {
             let attrs = try FileManager.default.attributesOfItem(atPath: path)
             guard let type = attrs[.type] as? FileAttributeType, type == .typeSymbolicLink else {
@@ -55,23 +65,39 @@ public struct File: Equatable {
         }
     }
 
-    public func resolveSymlink() throws -> File {
-        guard isSymlink else {
-            throw GitIdentityError.fileIsNotSymlink(atPath: path)
+    /**
+     Returns a new `File` value representing the destination of the symbolic link.
+
+     - Throws: An error if this is not a symbolic link.
+     - Throws: An error if the symbolic link cannot be resolved.
+     - Returns: A new `File` value representing the destination of the symbolic link.
+     */
+    public func resolveSymbolicLink() throws -> File {
+        guard isSymbolicLink else {
+            throw GitIdentityError.fileIsNotSymbolicLink(atPath: path)
         }
 
         return File(path: try FileManager.default.destinationOfSymbolicLink(atPath: path))
     }
 
+    /**
+     Reads the contents of this file as a string.
+
+     - Throws: An error if the file cannot be read as a string.
+     - Returns: The contents of this file as a string.
+     */
     public func readString() throws -> String {
         return try String(contentsOfFile: path)
     }
 
-    public func delete() throws {
-        try FileManager.default.removeItem(atPath: path)
-    }
+    /**
+     Creates a symbolic link with the specified destination. If this file exists, it is first removed.
 
-    public func createSymlink(to destination: File) throws {
+     - Throws: An error if this file exists but cannot be removed.
+     - Throws: An error if the symbolic link cannot be created.
+     - Parameter destination: The destination of the symbolic link.
+     */
+    public func createSymbolicLink(to destination: File) throws {
         if FileManager.default.fileExists(atPath: path) {
             try FileManager.default.removeItem(atPath: path)
         }

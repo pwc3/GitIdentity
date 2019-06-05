@@ -26,9 +26,12 @@
 
 import Foundation
 
+/// Information about the currently-selected identity.
 public struct CurrentIdentity {
 
+    /// The name of the currently-selected identity.
     public var name: String
 
+    /// The files referenced by the currently-selected identity.
     public var destination: Identity
 }

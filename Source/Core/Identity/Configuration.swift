@@ -26,28 +26,56 @@
 
 import Foundation
 
+/// Contains the `current` identity symbolic link locations as well as the other identities defined by the user.
 public struct Configuration {
 
+    /// The `current` identity in the configuration, containing symbolic links to an actual identity.
     private var currentIdentitySymlinks: Identity
 
+    /// A dictionary mapping from name to `Identity`.
     private var identities: [String: Identity]
 
+    /**
+     Loads the configuration from the specified file (`~/.git-identity-config.json` by default).
+
+     - Parameter file: The configuration file path.
+     - Throws: An error if the configuration file cannot be found or loaded.
+     */
     public static func load(file: File = File(path: "~/.git-identity-config.json")) throws -> Configuration {
         return try load(url: file.url)
     }
 
+    /**
+     Loads the configuration from the specified URL.
+
+     - Parameter url: The configuration file URL.
+     - Throws: An error if the configuration file cannot be found or loaded.
+     */
     public static func load(url: URL) throws -> Configuration {
         return try load(data: try Data(contentsOf: url))
     }
 
+    /**
+     Loads the configuration from the specified JSON object.
+
+     - Parameter data: A data value containing a JSON string.
+     - Throws: An error if the configuration file cannot be found or loaded.
+     */
     public static func load(data: Data) throws -> Configuration {
         return try JSONDecoder().decode(Configuration.self, from: data)
     }
 
+    /// An array containing the identity names defined in this configuration. The array is sorted alphabetically.
     public var identityNames: [String] {
         return identities.keys.sorted()
     }
 
+    /**
+     Returns the name for the identity in this configuration that matches the specified identity, or `nil` if one could be found.
+
+     - Parameter identity: The identity whose name is being retrieved.
+     - Returns: The name of the specified identity, or `nil` if no matching identities could be found.
+     */
     public func name(for identity: Identity) -> String? {
         for (name, id) in identities {
             if id == identity {
@@ -57,12 +85,25 @@ public struct Configuration {
         return nil
     }
 
+    /**
+     Returns the identity for the specified name, or `nil` if one could not be found.
+
+     - Parameter name: The name of the identity to be retrieved.
+     - Returns: The identity defined under the specified name in this configuration, or `nil` if no matching names could be found.
+     */
     public func identity(forName name: String) -> Identity? {
         return identities[name]
     }
 
+    /**
+     Loads the current identity. Resolves the symbolic links in the `current` identity and looks up the corresponding name. These values are used to construct a new `CurrentIdentity` object.
+
+     - Throws: An error if the `current` identity's symbolic links could not be resolved.
+     - Throws: An error if no name could be found in the configuration matching the target of the `current` identity's symbolic links.
+     - Returns: The current identity.
+     */
     public func loadCurrentIdentity() throws -> CurrentIdentity {
-        let destination = try currentIdentitySymlinks.resolveSymlinks()
+        let destination = try currentIdentitySymlinks.resolveSymbolicLinks()
         guard let name = name(for: destination) else {
             throw GitIdentityError.currentIdentityNameNotFound
         }
@@ -70,12 +111,18 @@ public struct Configuration {
         return CurrentIdentity(name: name, destination: destination)
     }
 
+    /**
+     Sets the current identity. Changes the symbolic links in the `current` identity to point to the files associated with the specified identity.
+
+     - Throws: An error if an identity cannot be found for the specified name.
+     - Throws: An error if the symbolic links are unable to be created.
+     */
     public func setCurrentIdentity(name: String) throws {
         guard let identity = identity(forName: name) else {
             throw GitIdentityError.identityNotFound(name: name)
         }
 
-        try currentIdentitySymlinks.symlink(to: identity)
+        try currentIdentitySymlinks.createSymbolicLinks(to: identity)
         IdentityChangedNotification.post(currentIdentity: name)
     }
 }
@@ -87,7 +134,7 @@ extension Configuration: Codable {
 
         var identities = try container.decode([String: Identity].self)
         guard let current = identities["current"] else {
-            throw GitIdentityError.currentIdentitySymlinksNotDefined
+            throw GitIdentityError.currentIdentityNotDefined
         }
 
         identities.removeValue(forKey: "current")

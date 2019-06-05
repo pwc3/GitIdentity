@@ -26,6 +26,7 @@
 
 import Foundation
 
+/// Operation to get the current version of the tool.
 public class VersionOperation: GitIdentityOperation<String> {
 
     override func execute() throws -> String {

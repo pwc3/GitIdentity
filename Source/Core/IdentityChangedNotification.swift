@@ -25,12 +25,20 @@
 //
 import Foundation
 
+/// A `Notification` sent via `DistributedNotificationCenter` to communicate between the CLI and GUI.
 public struct IdentityChangedNotification {
 
+    /// The name of the notification.
     public static let name = Notification.Name("com.anodizedsoftware.GitIdentity.IdentityChangedNotification")
 
+    /// The user info dictionary key associated with the current identity name.
     public static let currentIdentityKey = "currentIdentity"
 
+    /**
+     Posts this notification on the default `DistributedNotificationCenter`.
+
+     - Parameter currentIdentity: The name of the new current identity.
+     */
     static func post(currentIdentity: String) {
         DistributedNotificationCenter.default().post(name: IdentityChangedNotification.name, object: nil, userInfo: [
             IdentityChangedNotification.currentIdentityKey: currentIdentity

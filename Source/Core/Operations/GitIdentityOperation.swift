@@ -26,20 +26,31 @@
 
 import Foundation
 
+/// An abstract base class for the various Git identity operations.
 public class GitIdentityOperation<SuccessType>: Operation {
 
+    /// The current configuration.
     let config: Configuration
 
+    /// Indicates whether the result should be printed.
     let printOutput: Bool
 
+    /// The result of the operation.
     public private(set) var result: Result<SuccessType, Error>?
 
+    /**
+     Creates a new operation.
+
+     - Parameter config: The current configuration.
+     - Parameter printOutput: Indicates whether the result should be printed.
+     */
     public init(config: Configuration, printOutput: Bool) {
         self.config = config
         self.printOutput = printOutput
     }
 
-    override public func main() {
+    /// Entry point for the operation. Calls `execute()` and wraps its return value in a `Result`. Then prints the result if `printOutput` is `true`.
+    final override public func main() {
         let result: Result<SuccessType, Error>
         do {
             result = .success(try execute())
@@ -54,11 +65,14 @@ public class GitIdentityOperation<SuccessType>: Operation {
         }
     }
 
+    /// Does the operation's work.
+    /// Subclasses must override this method without calling `super`.
     func execute() throws -> SuccessType {
         fatalError("execute() must be overriden by subclass")
     }
 
-    func printResult(_ result: Result<SuccessType, Error>) {
+    /// Prints the result of the operation.
+    final func printResult(_ result: Result<SuccessType, Error>) {
         switch result {
         case .success(let value):
             printSuccess(value)
@@ -68,11 +82,14 @@ public class GitIdentityOperation<SuccessType>: Operation {
         }
     }
 
+    /// Prints the value associated with a `.success` result.
+    /// Subclasses must override this method without calling `super`.
     func printSuccess(_ value: SuccessType) {
         fatalError("printSuccess(_:) must be overridden by subclass")
     }
 
-    func printFailure(_ error: Error) {
+    /// Prints the error associated with a `.failure` result.
+    final func printFailure(_ error: Error) {
         print("Error: \(error.localizedDescription)")
     }
 }

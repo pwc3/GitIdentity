@@ -26,8 +26,10 @@
 
 import Foundation
 
+/// Contains the usage string constant.
 public struct Usage {
 
+    /// The usage string.
     public static let usage: String = [
         "git-identity: Manages multiple Git identity configurations (SSH keys, .gitconfig files).",
         "",

@@ -26,6 +26,7 @@
 
 import Foundation
 
+/// Operation to get the supported identities. The resulting dictionary maps from identity name to a boolean value indicating whether the associated identity is the current identity.
 public class ListOperation: GitIdentityOperation<[String: Bool]> {
 
     override func execute() throws -> [String: Bool] {
