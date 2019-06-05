@@ -29,15 +29,16 @@ To use your `personal` identity, run:
 
 ## Setup
 
-You'll need to set up SSH keys for each of your identities. They will be saved in your `.ssh` directory.
+For each of your identities, you'll need to do the following:
 
-You'll also need to create a `gitconfig` fragment for each of your identities. They will be saved in your home directory.
+- Set up SSH keys and save them in your `.ssh` directory.
+- Create a `.gitconfig` fragment and save it in your home directory.
 
-This only needs to be done once per identity.
+Finally, you'll need to create a configuration JSON file indicating what the identities are and where the SSH keys and `.gitconfig` fragments are stored.
 
 ### Setting up your SSH keys
 
-You'll need to have an SSH key for each Git identity. We'll use a fixed naming scheme to differentiate them. They will be stored in your `.ssh` directory. Their names will be `id_rsa_git_` followed by the identity name. Consider the case where you have an identity for personal use and for work use. We'll call these identities `personal` and `work`.
+You'll need to have an SSH key for each Git identity. We'll use a fixed naming scheme to differentiate them. They will be stored in your `.ssh` directory. In this example, their names will be `id_rsa_git_` followed by the identity name, but you are free to use whatever naming convention you prefer. Consider the case where you have an identity for personal use and for work use. We'll call these identities `personal` and `work`.
 
     $ cd ~/.ssh
 
@@ -70,7 +71,9 @@ If you don't have a `~/.ssh/config` file, create one. Edit it to contain the fol
       User git
       IdentityFile ~/.ssh/id_rsa_git_current
 
-This configures Git SSH URLs to use `~/.ssh/id_rsa_git_current.pub` and `~/.ssh/id_rsa_git_current` as your public and private SSH keys. _These files do not yet exist._ The `git-identity` script will create these as soft links to the currently-selected configuration's key files.
+This configures Github SSH URLs to use `~/.ssh/id_rsa_git_current.pub` and `~/.ssh/id_rsa_git_current` as your public and private SSH keys. _These files do not yet exist._ The `git-identity` script will create these as symbolic links to the currently-selected identity's key files.
+
+You will need to have similar configuration entries for other Git hosts.
 
 ### Setting up your Git config
 
@@ -85,7 +88,9 @@ We want to be able to switch the name and email address based on the current Git
     [include]
         path = ~/.gitconfig_identity_current
 
-You'll need to have a `gitconfig` fragment for each Git identity. Again, we'll use a naming scheme to differentiate them. They will be stored in your home directory. Their names will be `.gitconfig_identity_` followed by the identity name. Continuing our example of `personal` and `work` identities:
+Now, your `~/.gitconfig` file includes a config file that does not yet exist. As above, the `git-identity` script will create these as symbolic links to the current configuration's key files.
+
+You'll need to have a `gitconfig` fragment for each Git identity. They will be stored in your home directory. Their names will be `.gitconfig_identity_` followed by the identity name, but you are free to use whatever naming convention you prefer. Continuing our example of `personal` and `work` identities:
 
 Create `~/.gitconfig_identity_personal` with the following:
 
@@ -99,9 +104,41 @@ Create `~/.gitconfig_identity_work` with the following:
         name = Your Name
         email = work@email.address
 
-Now, your `~/.gitconfig` file includes a config file that does not yet exist. As above, the `git-identity` script will create these as softlinks to the current configuration's key files.
+### Setting up your Git Identity config
+
+Finally, you will need to create a JSON file in your home directory named `.git-identity-config.json`:
+
+    {
+        "current": {
+            "gitconfig": "~/.gitconfig_identity_current",
+            "privateKey": "~/.ssh/id_rsa_git_current",
+            "publicKey": "~/.ssh/id_rsa_git_current.pub"
+        },
+        "personal": {
+            "gitconfig": "~/.gitconfig_identity_personal",
+            "privateKey": "~/.ssh/id_rsa_git_personal",
+            "publicKey": "~/.ssh/id_rsa_git_personal.pub"
+        },
+        "work": {
+            "gitconfig": "~/.gitconfig_identity_work",
+            "privateKey": "~/.ssh/id_rsa_git_work",
+            "publicKey": "~/.ssh/id_rsa_git_work.pub"
+        }
+    }
+
+In the example above we have listed the following:
+
+- A `current` configuration. This contains the paths you added in the setup steps above:
+    - The `gitconfig` file is the path you included in your `.gitconfig` file's `[include]` section.
+    - The `privateKey` file is the path you included in your `.ssh/config` file.
+    - The `publicKey` file is the path to the public key associated with the private key. It should be the name of the private key file with `.pub` at the end.
+- Two other configurations: `personal` and `work` using the file paths created above.
 
 ## Usage
+
+The first step will be to set the current identity. Run the following:
+
+    $ git identity use work
 
 To list the currently available identities, run:
 
@@ -141,6 +178,12 @@ You can show more detailed information by running:
     Public key:
     -----------
     ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC5iRLTyBal1owgzE6M+/tLxPIEtqd9yT1vI/kk2ykM0KFUac8WCI65YId28t8hOVxP+AufAdeVXaSr4ZuVl9BPgwpo7ZS1ls8GW5prxkArmwG2MuJkQS1AipJ53Zng0w2DF0oCa/FcusSxz5y7nvAdcLM5cYJoAjWdhluQ0loe1m8KJM2Bl0A/2tpfsi1vHugvds4d9T6q4uYqImaWJ4hOuRot52ygDyN/i3IsqTVVzDae7q0F9TCjvBA1QGbo8Km6uUGN5wNi6fcLgsxdezITQNVChvFvLVRi5ve5l+BhdprDwUnpxVdwkNa1U2Tyu6cRnxwLnYo5WliBgAWrxFz3 personal@email.address
+
+## GUI
+
+There is an optional macOS status bar app. It shows a Git icon along with the current identity in the status bar. Clicking on the status bar item pops up a menu containing your available Git identities. A checkmark will be next to the current identity in the list.
+
+The GUI interoperates with the command-line tool. So long as you use the command-line tool to change the current identity the GUI will automatically update.
 
 ## Testing SSH Keys
 
