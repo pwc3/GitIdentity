@@ -132,6 +132,7 @@ class IdentityMenu: NSObject {
         for identity in identities.keys.sorted() {
             let menuItem = NSMenuItem(title: identity, action: #selector(selectIdentity(_:)), keyEquivalent: "")
             menuItem.target = self
+            menuItem.representedObject = identity
             menuItem.state = (identities[identity] ?? false) ? .on : .off
             menu.addItem(menuItem)
         }
@@ -173,7 +174,9 @@ class IdentityMenu: NSObject {
     }
 
     @objc private func selectIdentity(_ sender: NSMenuItem) {
-        let identity = sender.title
+        guard let identity = sender.representedObject as? String else {
+            return
+        }
         print("Select identity: \(identity)")
 
         let op = UseOperation(config: config, printOutput: false, identity: identity)
