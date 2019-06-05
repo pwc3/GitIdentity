@@ -94,9 +94,13 @@ class IdentityMenu: NSObject {
             updateMenu(with: value)
 
         case .failure(let error):
-            print("Update state with error: \(error)")
+            print("Update state with error: \(error.localizedDescription)")
             updateTitle(with: error)
             updateMenu(with: error)
+
+            let alert = NSAlert(error: error)
+            alert.window.title = "Git Identity"
+            alert.runModal()
         }
     }
 
