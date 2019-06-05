@@ -29,8 +29,8 @@ import XCTest
 
 class CurrentOperationTests: SandboxTestCase {
 
-    func testOperation() {
-        let op = CurrentOperation(config: config, printOutput: true)
+    func testOperation() throws {
+        let op = CurrentOperation(config: try createTestConfig(), printOutput: true)
         op.start()
         verify(op.result, "personal")
     }

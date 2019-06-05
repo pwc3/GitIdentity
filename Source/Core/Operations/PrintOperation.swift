@@ -41,12 +41,12 @@ public class PrintOperation: GitIdentityOperation<PrintOperation.Result> {
     }
 
     override func execute() throws -> Result {
-        let current = try CurrentIdentity(config: config)
+        let current = try config.loadCurrentIdentity()
 
-        let gitconfig = try current.destination.gitconfigFile.readContents().trimmingCharacters(in: .newlines)
-        let publicKey = try current.destination.publicKeyFile.readContents().trimmingCharacters(in: .newlines)
+        let gitconfig = try current.destination.gitconfig.readString().trimmingCharacters(in: .newlines)
+        let publicKey = try current.destination.publicKey.readString().trimmingCharacters(in: .newlines)
 
-        return Result(current: current.destination.name, gitconfig: gitconfig, publicKey: publicKey)
+        return Result(current: current.name, gitconfig: gitconfig, publicKey: publicKey)
     }
 
     override func printSuccess(_ value: Result) {

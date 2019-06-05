@@ -2,7 +2,7 @@
 //  Identity.swift
 //  GitIdentityCore
 //
-//  Created by Paul Calnan on 5/30/19.
+//  Created by Paul Calnan on 6/4/19.
 //  Copyright (C) 2018-2019 Anodized Software, Inc.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
@@ -26,79 +26,36 @@
 
 import Foundation
 
-public class Identity {
+public struct Identity: Codable, Equatable {
 
-    public let name: String
+    public var gitconfig: File
 
-    public let privateKeyFile: IdentityFile
+    public var privateKey: File
 
-    public let publicKeyFile: IdentityFile
+    public var publicKey: File
 
-    public let gitconfigFile: IdentityFile
-
-    public init(privateKeyFile: IdentityFile, publicKeyFile: IdentityFile, gitconfigFile: IdentityFile) throws {
-        self.privateKeyFile = privateKeyFile
-        self.publicKeyFile = publicKeyFile
-        self.gitconfigFile = gitconfigFile
-
-        let files = [privateKeyFile, publicKeyFile, gitconfigFile]
-        let fileIdentities = Set(files.map { $0.identityName })
-        guard fileIdentities.count == 1, let name = fileIdentities.first else {
-            throw GitIdentityError.inconsistentIdentities(files: files, identities: Array(fileIdentities).sorted())
-        }
-        self.name = name
-
-        _ = try filesAreAllSymlinks()
+    public init(gitconfig: File, privateKey: File, publicKey: File) {
+        self.gitconfig = gitconfig
+        self.privateKey = privateKey
+        self.publicKey = publicKey
     }
 
-    var files: [IdentityFile] {
-        return [privateKeyFile, publicKeyFile, gitconfigFile]
+    public func resolveSymlinks() throws -> Identity {
+        return Identity(gitconfig: try gitconfig.resolveSymlink(),
+                        privateKey: try privateKey.resolveSymlink(),
+                        publicKey: try publicKey.resolveSymlink())
     }
 
-    func filesAreAllSymlinks() throws -> Bool {
-        let isSymlink = files.map { $0.isSymlink }
-        let allTrue = isSymlink.allSatisfy { $0 }
-        let allFalse = isSymlink.allSatisfy { !$0 }
-
-        if allTrue {
-            return true
-        }
-        else if allFalse {
-            return false
-        }
-        else {
-            throw GitIdentityError.invalidIdentity(name: name,
-                                                   symlinks: files.filter { $0.isSymlink },
-                                                   notSymlinks: files.filter { !$0.isSymlink })
-        }
-    }
-
-    public static func read(name: String, config: Configuration) throws -> Identity {
-        return try Identity(privateKeyFile: try IdentityFile(type: .privateKey,
-                                                             inDirectory: config.sshPath,
-                                                             forIdentity: name),
-                            publicKeyFile: try IdentityFile(type: .publicKey,
-                                                            inDirectory: config.sshPath,
-                                                            forIdentity: name),
-                            gitconfigFile: try IdentityFile(type: .gitconfig,
-                                                            inDirectory: config.gitconfigPath,
-                                                            forIdentity: name))
-    }
-
-    public static func identities(config: Configuration) -> [Identity] {
-        let sshFiles = IdentityFile.files(inDirectory: config.sshPath)
-        let gitconfigFiles = IdentityFile.files(inDirectory: config.gitconfigPath)
-
-        let sshNames = Set(sshFiles.map { $0.identityName })
-        let gitconfigNames = Set(gitconfigFiles.map { $0.identityName })
-
-        let names = sshNames.intersection(gitconfigNames).subtracting([CurrentIdentity.identifier])
-        return names.compactMap { try? Identity.read(name: $0, config: config) }.sorted(by: { $0.name < $1.name })
+    public func symlink(to identity: Identity) throws {
+        try gitconfig.createSymlink(to: identity.gitconfig)
+        try privateKey.createSymlink(to: identity.privateKey)
+        try publicKey.createSymlink(to: identity.publicKey)
     }
 }
 
 extension Identity: CustomDebugStringConvertible {
+
     public var debugDescription: String {
-        return "Identity(name: \(name), privateKeyFile: \(privateKeyFile.debugDescription), publicKeyFile: \(publicKeyFile.debugDescription), gitconfigFile: \(gitconfigFile.debugDescription))"
+        return "Identity(gitconfig: \(gitconfig.path), privateKey: \(privateKey.path), publicKey: \(publicKey.path))"
     }
 }

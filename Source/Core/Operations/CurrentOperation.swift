@@ -29,8 +29,8 @@ import Foundation
 public class CurrentOperation: GitIdentityOperation<String> {
     
     override func execute() throws -> String {
-        let current = try CurrentIdentity(config: config)
-        return current.destination.name
+        let current = try config.loadCurrentIdentity()
+        return current.name
     }
 
     override func printSuccess(_ value: String) {

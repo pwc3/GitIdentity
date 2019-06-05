@@ -30,13 +30,15 @@ import XCTest
 class UseOperationTests: SandboxTestCase {
 
     func testOperation() throws {
-        let before = try CurrentIdentity(config: config)
-        XCTAssertEqual(before.destination.name, "personal")
+        let config = try createTestConfig()
+
+        let before = try config.loadCurrentIdentity()
+        XCTAssertEqual(before.name, "personal")
 
         let op = UseOperation(config: config, printOutput: true, identity: "work")
         op.start()
 
-        let after = try CurrentIdentity(config: config)
-        XCTAssertEqual(after.destination.name, "work")
+        let after = try config.loadCurrentIdentity()
+        XCTAssertEqual(after.name, "work")
     }
 }

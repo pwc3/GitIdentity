@@ -24,6 +24,7 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+import GitIdentityCore
 import Foundation
 
 class Sandbox {
@@ -38,6 +39,10 @@ class Sandbox {
     init(root: URL = defaultRoot) throws {
         self.root = root
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+    }
+
+    func file(at filename: String) -> File {
+        return File(path: path(filename))
     }
 
     func url(_ filename: String) -> URL {
@@ -68,7 +73,10 @@ class Sandbox {
     }
 
     func createSymlink(at locationFilename: String, destination destinationFilename: String) throws {
-        try FileManager.default.createSymbolicLink(at: url(locationFilename), withDestinationURL: url(destinationFilename))
+        let locationPath = path(locationFilename)
+        let destinationPath = path(destinationFilename)
+        try FileManager.default.createSymbolicLink(atPath: locationPath, withDestinationPath: destinationPath)
+        print("Created symlink at \(locationPath) with destination \(destinationPath)")
     }
 
     func remove(_ filename: String) throws {
@@ -100,6 +108,27 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC5iRLTyBal1owgzE6M+/tLxPIEtqd9yT1vI/kk2ykM
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC5iRLTyBal1owgzE6M+/tLxPIEtqd9yT1vI/kk2ykM0KFUac8WCI65YId28t8hOVxP+AufAdeVXaSr4ZuVl9BPgwpo7ZS1ls8GW5prxkArmwG2MuJkQS1AipJ53Zng0w2DF0oCa/FcusSxz5y7nvAdcLM5cYJoAjWdhluQ0loe1m8KJM2Bl0A/2tpfsi1vHugvds4d9T6q4uYqImaWJ4hOuRot52ygDyN/i3IsqTVVzDae7q0F9TCjvBA1QGbo8Km6uUGN5wNi6fcLgsxdezITQNVChvFvLVRi5ve5l+BhdprDwUnpxVdwkNa1U2Tyu6cRnxwLnYo5WliBgAWrxFz3 work@email.address
 """
 
+    var config: String { return """
+{
+    "current": {
+        "gitconfig": "\(path(".gitconfig_identity_current"))",
+        "privateKey": "\(path(".ssh/id_rsa_git_current"))",
+        "publicKey": "\(path(".ssh/id_rsa_git_current.pub"))"
+    },
+    "personal": {
+        "gitconfig": "\(path(".gitconfig_identity_personal"))",
+        "privateKey": "\(path(".ssh/id_rsa_git_personal"))",
+        "publicKey": "\(path(".ssh/id_rsa_git_personal.pub"))"
+    },
+    "work": {
+        "gitconfig": "\(path(".gitconfig_identity_work"))",
+        "privateKey": "\(path(".ssh/id_rsa_git_work"))",
+        "publicKey": "\(path(".ssh/id_rsa_git_work.pub"))"
+    }
+}
+"""
+    }
+
     static func testContents() throws -> Sandbox {
         let fs = try Sandbox()
 
@@ -107,6 +136,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC5iRLTyBal1owgzE6M+/tLxPIEtqd9yT1vI/kk2ykM
         try fs.create(".bash_history")
         try fs.create(".gitconfig_identity_personal", contents: gitconfigPersonal)
         try fs.create(".gitconfig_identity_work", contents: gitconfigWork)
+        try fs.create(".git-identity-config.json", contents: fs.config)
         try fs.create(".ssh/config")
         try fs.create(".ssh/id_rsa_git_personal")
         try fs.create(".ssh/id_rsa_git_personal.pub", contents: publicKeyPersonal)

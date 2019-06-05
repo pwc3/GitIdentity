@@ -37,24 +37,20 @@ class InitialSetupTests: SandboxTestCase {
     }
 
     func testCurrentIdentity() {
-        XCTAssertThrowsError(try CurrentIdentity(config: config))
+        XCTAssertThrowsError(try createTestConfig().loadCurrentIdentity())
     }
 
     func testInitialSetup() throws {
-        XCTAssertThrowsError(try CurrentIdentity(config: config))
+        let config = try self.createTestConfig()
 
-        let work = try Identity.read(name: "work", config: config)
+        XCTAssertThrowsError(try config.loadCurrentIdentity())
 
-        let updated = try CurrentIdentity.set(to: work, config: config)
-        XCTAssertEqual(updated.destination.name, "work")
-        verify(updated.destination.gitconfigFile, "work", .gitconfig, ".gitconfig_identity_work")
-        verify(updated.destination.publicKeyFile, "work", .publicKey, ".ssh/id_rsa_git_work.pub")
-        verify(updated.destination.privateKeyFile, "work", .privateKey, ".ssh/id_rsa_git_work")
+        try config.setCurrentIdentity(name: "work")
 
-        let current = try CurrentIdentity(config: config)
-        XCTAssertEqual(current.destination.name, "work")
-        verify(current.destination.gitconfigFile, "work", .gitconfig, ".gitconfig_identity_work")
-        verify(current.destination.publicKeyFile, "work", .publicKey, ".ssh/id_rsa_git_work.pub")
-        verify(current.destination.privateKeyFile, "work", .privateKey, ".ssh/id_rsa_git_work")
+        let current = try config.loadCurrentIdentity()
+        XCTAssertEqual(current.name, "work")
+        XCTAssertEqual(current.destination.gitconfig, fs.file(at: ".gitconfig_identity_work"))
+        XCTAssertEqual(current.destination.privateKey, fs.file(at: ".ssh/id_rsa_git_work"))
+        XCTAssertEqual(current.destination.publicKey, fs.file(at: ".ssh/id_rsa_git_work.pub"))
     }
 }

@@ -36,24 +36,14 @@ public enum GitIdentityError: Error {
 
     case fileIsNotSymlink(atPath: String)
 
-    case cannotDetermineIdentityFromFile(atPath: String)
+    case currentIdentitySymlinksNotDefined
 
-    case symlinkTypeMismatch(identity: String, symlinkPath: String, symlinkType: IdentityFileType, destinationPath: String, destinationType: IdentityFileType)
+    case currentIdentityNameNotFound
 
-    case inconsistentIdentities(files: [IdentityFile], identities: [String])
-
-    case invalidIdentity(name: String, symlinks: [IdentityFile], notSymlinks: [IdentityFile])
-
-    case currentIdentityContainsNonSymlinks
-
-    case identityContainsSymlinks(name: String)
+    case identityNotFound(name: String)
 }
 
 extension GitIdentityError: LocalizedError {
-
-    private func paths(for files: [IdentityFile]) -> String {
-        return files.map { $0.path }.joined(separator: ", ")
-    }
 
     public var errorDescription: String? {
         switch self {
@@ -69,23 +59,14 @@ extension GitIdentityError: LocalizedError {
         case .fileIsNotSymlink(let path):
             return "Expected symlink at \(path)"
 
-        case .cannotDetermineIdentityFromFile(let path):
-            return "Cannot determine identity from file at \(path)"
+        case .currentIdentitySymlinksNotDefined:
+            return "The configuration file does not specify a \"current\" configuration defining the symlink locations."
 
-        case .symlinkTypeMismatch(let identity, let symlinkPath, let symlinkType, let destinationPath, let destinationType):
-            return "In identity \"\(identity)\", the symlink at \(symlinkPath) is \(symlinkType.description), while the destination at \(destinationPath) is \(destinationType.description)"
+        case .currentIdentityNameNotFound:
+            return "The files referenced by the \"current\" identity's symbolic links do not match any identities defined in the configuration file."
 
-        case .inconsistentIdentities(let files, let identities):
-            return "Multiple identities (\(identities.joined(separator: ", "))) in filenames (\(paths(for: files)))"
-
-        case .invalidIdentity(let name, let symlinks, let notSymlinks):
-            return "Invalid identity \"\(name)\": mixed symlinks (\(paths(for: symlinks))) and files (\(paths(for: notSymlinks)))"
-
-        case .currentIdentityContainsNonSymlinks:
-            return "The \"current\" identity must be comprised solely of symlinks."
-
-        case .identityContainsSymlinks(let name):
-            return "The identity \"\(name)\" must not be comprised of any symlinks."
+        case .identityNotFound(let name):
+            return "Could not find identity with name \"\(name)\""
         }
     }
 }

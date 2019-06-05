@@ -37,12 +37,20 @@ class IdentityMenu: NSObject {
 
     private let operationQueue: OperationQueue
 
-    private let config = Configuration()
+    private let config: Configuration
 
     let statusItem: NSStatusItem
 
     override init() {
         operationQueue = OperationQueue()
+
+        do {
+            config = try Configuration.load()
+        }
+        catch {
+            // TODO: handle and present alert
+            fatalError("Error: \(error)")
+        }
 
         let icon = NSImage(named: "Git-Icon-Black")
         icon?.size = NSSize(width: iconSize, height: iconSize)

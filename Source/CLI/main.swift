@@ -28,7 +28,7 @@ import GitIdentityCore
 import Foundation
 
 func main(args: [String]) throws -> Int32 {
-    let config = Configuration()
+    let config = try Configuration.load()
 
     switch ActionParser.parse(arguments: Array(args[1...])) {
     case .success(let action):

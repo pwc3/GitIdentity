@@ -29,13 +29,12 @@ import Foundation
 public class ListOperation: GitIdentityOperation<[String: Bool]> {
 
     override func execute() throws -> [String: Bool] {
-        let current = try CurrentIdentity(config: config).destination.name
-        let identities = Identity.identities(config: config)
+        let current = try config.loadCurrentIdentity().name
+        let identities = config.identityNames
 
         var result = [String: Bool]()
         for id in identities {
-            let name = id.name
-            result[name] = (name == current)
+            result[id] = (id == current)
         }
 
         return result

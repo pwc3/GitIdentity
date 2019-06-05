@@ -49,14 +49,9 @@ class SandboxTestCase: XCTestCase {
         return fs.path(".ssh")
     }
 
-    var config: Configuration {
-        return Configuration(sshPath: sshPath, gitconfigPath: rootPath)
-    }
-
-    func verify(_ identityFile: IdentityFile, _ identity: String, _ type: IdentityFileType, _ path: String, file: StaticString = #file, line: UInt = #line) {
-        XCTAssertEqual(identityFile.identityName, identity, file: file, line: line)
-        XCTAssertEqual(identityFile.type, type, file: file, line: line)
-        XCTAssertEqual(identityFile.path, fs.path(path), file: file, line: line)
+    func createTestConfig() throws -> Configuration {
+        let config = try Configuration.load(file: File(path: fs.path(".git-identity-config.json")))
+        return config
     }
 
     func verify<Success>(_ result: Result<Success, Error>?, _ expected: Success, file: StaticString = #file, line: UInt = #line) where Success: Equatable {

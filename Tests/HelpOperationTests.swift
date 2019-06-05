@@ -29,8 +29,8 @@ import XCTest
 
 class HelpOperationTests: SandboxTestCase {
 
-    func testOperation() {
-        let op = HelpOperation(config: config, printOutput: true)
+    func testOperation() throws {
+        let op = HelpOperation(config: try createTestConfig(), printOutput: true)
         op.start()
         verify(op.result, Usage.usage)
     }

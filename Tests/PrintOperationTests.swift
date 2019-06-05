@@ -29,8 +29,8 @@ import XCTest
 
 class PrintOperationTests: SandboxTestCase {
 
-    func testOperation() {
-        let op = PrintOperation(config: config, printOutput: true)
+    func testOperation() throws {
+        let op = PrintOperation(config: try createTestConfig(), printOutput: true)
         op.start()
         verify(op.result, PrintOperation.Result(current: "personal", gitconfig: Sandbox.gitconfigPersonal, publicKey: Sandbox.publicKeyPersonal))
     }

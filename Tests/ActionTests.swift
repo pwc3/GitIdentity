@@ -29,11 +29,11 @@ import XCTest
 
 class ActionTests: SandboxTestCase {
 
-    func testCreateOperation() {
-        XCTAssertTrue(Action.current.createOperation(config: config) is CurrentOperation)
-        XCTAssertTrue(Action.list.createOperation(config: config) is ListOperation)
-        XCTAssertTrue(Action.print.createOperation(config: config) is PrintOperation)
-        XCTAssertTrue(Action.use(identity: "foo").createOperation(config: config) is UseOperation)
-        XCTAssertTrue(Action.help.createOperation(config: config) is HelpOperation)
+    func testCreateOperation() throws {
+        XCTAssertTrue(Action.current.createOperation(config: try createTestConfig()) is CurrentOperation)
+        XCTAssertTrue(Action.list.createOperation(config: try createTestConfig()) is ListOperation)
+        XCTAssertTrue(Action.print.createOperation(config: try createTestConfig()) is PrintOperation)
+        XCTAssertTrue(Action.use(identity: "foo").createOperation(config: try createTestConfig()) is UseOperation)
+        XCTAssertTrue(Action.help.createOperation(config: try createTestConfig()) is HelpOperation)
     }
 }
