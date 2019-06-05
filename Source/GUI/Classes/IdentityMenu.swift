@@ -180,12 +180,8 @@ class IdentityMenu: NSObject {
         print("Select identity: \(identity)")
 
         let op = UseOperation(config: config, printOutput: false, identity: identity)
-        op.completionBlock = { [weak self] in
-            DispatchQueue.main.async {
-                self?.updateState()
-            }
-        }
         operationQueue.addOperation(op)
+        // We don't need to add a completion handler. We are already listening for the IdentityChangedNotification which will update the UI.
     }
 
     @objc private func quit(_ sender: NSMenuItem) {
