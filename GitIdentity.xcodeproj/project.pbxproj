@@ -322,6 +322,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C51D8FB322A060C6006C2181 /* Build configuration list for PBXNativeTarget "GitIdentity" */;
 			buildPhases = (
+				C55D04352617A6AA009B9DE3 /* Run Linter */,
 				C51D8FA122A060C3006C2181 /* Sources */,
 				C51D8FA222A060C3006C2181 /* Frameworks */,
 				C51D8FA322A060C3006C2181 /* Resources */,
@@ -341,6 +342,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C51D8FD822A0616B006C2181 /* Build configuration list for PBXNativeTarget "git-identity" */;
 			buildPhases = (
+				C55D04562617AAE6009B9DE3 /* Run LInter */,
 				C51D8FD022A0616A006C2181 /* Sources */,
 				C51D8FD122A0616A006C2181 /* Frameworks */,
 				C51D8FD222A0616A006C2181 /* CopyFiles */,
@@ -360,6 +362,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C51D8FFC22A06219006C2181 /* Build configuration list for PBXNativeTarget "GitIdentityTests" */;
 			buildPhases = (
+				C55D04572617AAF7009B9DE3 /* Run Linter */,
 				C51D8FF122A06219006C2181 /* Sources */,
 				C51D8FF222A06219006C2181 /* Frameworks */,
 				C51D8FF322A06219006C2181 /* Resources */,
@@ -378,6 +381,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C51D900B22A063F8006C2181 /* Build configuration list for PBXNativeTarget "GitIdentityCore" */;
 			buildPhases = (
+				C55D04582617AB0A009B9DE3 /* Run Linter */,
 				C51D900322A063F8006C2181 /* Sources */,
 				C51D900422A063F8006C2181 /* Frameworks */,
 				C51D900522A063F8006C2181 /* CopyFiles */,
@@ -495,6 +499,78 @@
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "cp -R \"$INSTALL_DIR/GitIdentity.app\" \"$HOME/Applications/\"\n";
+		};
+		C55D04352617A6AA009B9DE3 /* Run Linter */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Linter";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bin/run-linter.sh \"${PROJECT_DIR}/Source/GUI\"\n";
+		};
+		C55D04562617AAE6009B9DE3 /* Run LInter */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run LInter";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bin/run-linter.sh \"${PROJECT_DIR}/Source/CLI\"\n";
+		};
+		C55D04572617AAF7009B9DE3 /* Run Linter */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Linter";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bin/run-linter.sh \"${PROJECT_DIR}/Tests\"\n\n";
+		};
+		C55D04582617AB0A009B9DE3 /* Run Linter */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Linter";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bin/run-linter.sh \"${PROJECT_DIR}/Source/Core\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
