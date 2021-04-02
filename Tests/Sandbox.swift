@@ -24,8 +24,8 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-import GitIdentityCore
 import Foundation
+import GitIdentityCore
 
 class Sandbox {
 

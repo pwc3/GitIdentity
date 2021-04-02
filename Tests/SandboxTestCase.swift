@@ -33,11 +33,22 @@ class SandboxTestCase: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        fs = try! Sandbox.testContents()
+
+        do {
+            fs = try Sandbox.testContents()
+        }
+        catch {
+            fatalError("Error creating sandbox: \(error)")
+        }
     }
 
     override func tearDown() {
-        try! fs.destroy()
+        do {
+            try fs.destroy()
+        }
+        catch {
+            fatalError("Error destroying sandbox: \(error)")
+        }
         super.tearDown()
     }
 

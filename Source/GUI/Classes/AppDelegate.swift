@@ -24,8 +24,8 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-import GitIdentityCore
 import Cocoa
+import GitIdentityCore
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {

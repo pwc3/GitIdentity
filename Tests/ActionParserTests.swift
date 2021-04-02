@@ -32,8 +32,8 @@ class ActionParserTests: XCTestCase {
     private func check(actual: Result<Action, GitIdentityError>,
                        expected: Result<Action, GitIdentityError>,
                        file: StaticString = #file,
-                       line: UInt = #line)
-    {
+                       line: UInt = #line) {
+
         switch (expected, actual) {
         case (.success(let a1), .success(let a2)):
             XCTAssertEqual(a1, a2, file: file, line: line)
