@@ -1,0 +1,35 @@
+opt_in_rules:
+    - closure_end_indentation
+    - closure_spacing
+    - conditional_returns_on_newline
+    - fatal_error_message
+    - file_name
+    - force_unwrapping
+    - literal_expression_end_indentation
+    - lower_acl_than_parent
+    - mark
+    - missing_docs
+    - operator_usage_whitespace
+    - overridden_super_call
+    - override_in_extension
+    - sorted_imports
+
+disabled_rules:
+    - cyclomatic_complexity
+    - file_length
+    - function_body_length
+    - identifier_name
+    - line_length
+    - statement_position
+    - trailing_comma
+    - type_body_length
+
+missing_docs:
+    error:
+        - open
+        - public
+#    warning:
+#        - internal
+#        - fileprivate
+#        - private
+

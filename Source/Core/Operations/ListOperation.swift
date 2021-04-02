@@ -41,7 +41,7 @@ public class ListOperation: GitIdentityOperation<[String: Bool]> {
         return result
     }
 
-    override func printSuccess(_ value: [String : Bool]) {
+    override func printSuccess(_ value: [String: Bool]) {
         for identity in value.keys.sorted() {
             let prefix = value[identity] ?? false
                 ? " * "

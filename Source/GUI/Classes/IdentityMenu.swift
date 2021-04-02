@@ -24,8 +24,8 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-import GitIdentityCore
 import Cocoa
+import GitIdentityCore
 
 class IdentityMenu: NSObject {
 
@@ -68,7 +68,7 @@ class IdentityMenu: NSObject {
         return NSAttributedString(string: " \(value)", attributes: [
             .baselineOffset: titleBaselineOffset,
             .font: NSFont.systemFont(ofSize: titleFontSize)
-            ])
+        ])
     }
 
     private func updateState() {
@@ -105,11 +105,9 @@ class IdentityMenu: NSObject {
     }
 
     private func updateTitle(with identities: [String: Bool]) {
-        for identity in identities.keys {
-            if identities[identity] ?? false {
-                setTitle(identity)
-                return
-            }
+        for identity in identities.keys where identities[identity] ?? false {
+            setTitle(identity)
+            return
         }
 
         setTitle("??")

@@ -31,9 +31,15 @@ class InitialSetupTests: SandboxTestCase {
 
     override func setUp() {
         super.setUp()
-        try! fs.remove(".gitconfig_identity_current")
-        try! fs.remove(".ssh/id_rsa_git_current")
-        try! fs.remove(".ssh/id_rsa_git_current.pub")
+
+        do {
+            try fs.remove(".gitconfig_identity_current")
+            try fs.remove(".ssh/id_rsa_git_current")
+            try fs.remove(".ssh/id_rsa_git_current.pub")
+        }
+        catch {
+            fatalError("Could not remove file: \(error)")
+        }
     }
 
     func testCurrentIdentity() {

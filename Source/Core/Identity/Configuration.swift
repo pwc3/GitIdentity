@@ -77,10 +77,8 @@ public struct Configuration {
      - Returns: The name of the specified identity, or `nil` if no matching identities could be found.
      */
     public func name(for identity: Identity) -> String? {
-        for (name, id) in identities {
-            if id == identity {
-                return name
-            }
+        for (name, id) in identities where id == identity {
+            return name
         }
         return nil
     }
@@ -154,6 +152,7 @@ extension Configuration: Codable {
 extension Configuration: CustomDebugStringConvertible {
 
     public var debugDescription: String {
+        // swiftlint:disable:next force_try force_unwrapping
         let json = String(data: try! JSONEncoder().encode(self), encoding: .utf8)!
         return "Configuration( \(json) )"
     }

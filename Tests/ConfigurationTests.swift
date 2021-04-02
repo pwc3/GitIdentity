@@ -49,8 +49,12 @@ class ConfigurationTests: XCTestCase {
     }
 }
 """
+        guard let data = json.data(using: .utf8) else {
+            XCTFail("Error converting to UTF-8 data")
+            return
+        }
 
-        let config = try Configuration.load(data: json.data(using: .utf8)!)
+        let config = try Configuration.load(data: data)
         XCTAssertEqual(config.identityNames.count, 2)
         XCTAssertEqual(config.identityNames, ["personal", "work"])
 
@@ -83,7 +87,11 @@ class ConfigurationTests: XCTestCase {
 }
 """
 
-        XCTAssertThrowsError(try Configuration.load(data: json.data(using: .utf8)!))
+        guard let data = json.data(using: .utf8) else {
+            XCTFail("Error converting to UTF-8 data")
+            return
+        }
+        XCTAssertThrowsError(try Configuration.load(data: data))
     }
 
     func testMissingName() throws {
@@ -106,8 +114,12 @@ class ConfigurationTests: XCTestCase {
     }
 }
 """
+        guard let data = json.data(using: .utf8) else {
+            XCTFail("Error converting to UTF-8 data")
+            return
+        }
 
-        let config = try Configuration.load(data: json.data(using: .utf8)!)
+        let config = try Configuration.load(data: data)
         XCTAssertNil(config.identity(forName: "fnord"))
 
         let identity = Identity(gitconfig: File(path: "~/.gitconfig_identity_fnord"),

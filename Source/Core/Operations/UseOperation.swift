@@ -36,7 +36,7 @@ public class UseOperation: GitIdentityOperation<Void> {
         super.init(config: config, printOutput: printOutput)
     }
 
-    override func execute() throws -> Void {
+    override func execute() throws {
         try config.setCurrentIdentity(name: identity)
     }
 
